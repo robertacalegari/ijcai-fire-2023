@@ -57,14 +57,14 @@
 \DeclareMathOperator*{\union}{\bigcup}
 
 \newcommand{\xai}{XAI}
-\newcommand{\psyke}{omitted}%PSyKE
+\newcommand{\psyke}{\textsc{Omitted}}%PSyKE
 \newcommand{\real}{\textsc{REAL}}
 \newcommand{\trepan}{\textsc{Trepan}}
 \newcommand{\iter}{\textsc{Iter}}
 \newcommand{\gridex}{GridEx}
 \newcommand{\gridrex}{GridREx}
 \newcommand{\cream}{\textsc{CREAM}}
-\newcommand{\creepy}{CReEPy}
+\newcommand{\creepy}{\textsc{Omitted}} %CReEPy
 \newcommand{\crash}{\textsc{CRASH}}
 \newcommand{\pedro}{\textsc{PEDRO}}
 \newcommand{\cart}{\textsc{Cart}}
@@ -74,8 +74,8 @@
 \newcommand{\fire}{FiRe}
 \newcommand{\psifire}{$\psi$-\fire}
 
-\newcommand\twoinarow{0.49\linewidth}
-\newcommand\twoinarowlarge{0.51\linewidth}
+%\newcommand\twoinarow{0.49\linewidth}
+%\newcommand\twoinarowlarge{0.51\linewidth}
 \newcommand\threeinarow{.3375\linewidth}
 \newcommand\fourinarow{0.245\linewidth}
 
@@ -179,6 +179,8 @@ A rigorous mathematical formulation is provided along with several practical exa
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Please note that in this manuscript all occurrences of named works and bibliographic references possibly leading to the authors' identity have been shaded with \creepy{} and [?]\ placeholders, respectively. Appropriate names and references will be inserted in case of acceptance.}
+
 One of the main strengths of machine learning (ML) models is their ability to provide exceptionally accurate predictions when applied in (roughly) every conceivable scenario~\cite{rocha2012far}.
 %
 Unfortunately, the most powerful ML predictors (such as deep neural networks, for instance) present a high price in terms of human interpretability of their outputs.
@@ -238,7 +240,7 @@ SKE techniques have been applied in a wide variety of areas~\cite{steiner2006usi
 %%
 %They only consider the output response corresponding to a given input instance or set of instances, with the aim of creating a mimicking, human-interpretable model able to approximate the underlying model predictions in the most adherent way.
 %
-Comparisons between different instances of the same extractor, or different extractors, in order to select the ``best knowledge extracted" are usually carried out by measuring
+Comparisons between different instances of the same extractor, or different extractors, in order to select the ``best extracted knowledge" are usually carried out by measuring
 %
 \begin{inlinelist}
 	\item the predictive performance of the extractor, w.r.t.\ both the underlying BB predictions and the actual data set output variables; and
@@ -247,8 +249,7 @@ Comparisons between different instances of the same extractor, or different extr
 %
 However, such a comparison in the literature is always done manually, just looking at the predictive performance of the extractor and the readability, separately.
 So, to the best of our knowledge, not only an automatic way of evaluation is missing in the literature, but also the definition of a metric to synergically combine predictive performance and readability to measure the quality of the extracted knowledge as a unique indicator.
-
- while the definition of a metric for automatic evaluation is still missing. 
+% while the definition of a metric for automatic evaluation is still missing. 
 
 The predictive performance of the extracted knowledge may be assessed w.r.t.\ 2 different dimensions by using the same scoring function adopted for the underlying BB.
 %
@@ -259,7 +260,7 @@ These dimensions are:
 	\item the \emph{predictive performance} w.r.t.\ the data set output features.
 \end{inlinelist}
 
-The readability from a human perspective is usually done by comparing the number of items extracted (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracts a decision tree with depth 10) \cite{literature}.
+The readability from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracts a decision tree with depth 10) \cite{literature}.\textbf{@RC: ma sai, a me pare una cosa banale. Cmq si potrebbe citare questo \url{https://link.springer.com/chapter/10.1007/978-3-319-39627-9\_39}}
 % 
 It is evident that an evaluation made only at this level can be considered rather superficial, since a wider set of indicators should be taken into account for a fair evaluation \cite{sabbatini2022-metrics}.
 %
@@ -273,13 +274,13 @@ In particular, a readability metric should at least consider:
 However, both these items may require further investigations to discern between more and less readable knowledge representations and how to formalize them.
 
 %%%%%%%%%%%%%%%%%%%%%%%
-\subsection{On the knowledge readability: considerations and examples}\label{sec:motivation}
+\subsection{On the knowledge readability: considerations and examples}\label{ssec:motivation}
 %%%%%%%%%%%%%%%%%%%%%%%
-As mentioned above, knowledge extracted from a BB via SKE comes in the form of lists, decision trees, logical rules, or decision tables \cite{aggiungere}. 
+As mentioned above, knowledge extracted from a BB via SKE comes in the form of lists, decision trees, or decision tables \cite{guidotti2018survey,huysmans2011empirical}. 
 %
 In the following, some considerations and examples of different levels of readability of these outputs are discussed, to make the reader understand all the features that a readability evaluation metric should take into account when formulated.
 
-It is worth noting that rule lists and trees are equivalent, since starting from a tree it is possible to build a list of rules by converting each path from the tree root to a different leaf into a distinct rule.
+It is worth noting that according to~\citeauthor{sabbatini2022-metrics}~(\citeyear{sabbatini2022-metrics}) rule lists and trees are equivalent, since starting from a tree it is possible to build a list of rules by converting each path from the tree root to a different leaf into a distinct rule.
 %
 Analogously, decision tables usually represent a rule per row (or column), so they can be easily translated into a list of rules. 
 %
@@ -346,17 +347,17 @@ So the unique metric formulated for measuring the quality of the knowledge extra
 \captionsetup[subfigure]{width=.4\linewidth}
 \begin{figure}[tb]\centering
 	\subfloat[1-\fire{}.]{
-		\includegraphics[width=0.45\linewidth]{figures/psi_1_color.pdf}\label{fig:psi1}
+		\includegraphics[width=0.5\linewidth]{figures/psi_1_color.pdf}\label{fig:psi1}
 	}
 	\subfloat[3-\fire{}.]{
-		\includegraphics[width=0.45\linewidth]{figures/psi_3_color.pdf}\label{fig:psi3}
+		\includegraphics[width=0.5\linewidth]{figures/psi_3_color.pdf}\label{fig:psi3}
 	}
 	\\
 	\subfloat[5-\fire{}.]{
-		\includegraphics[width=0.45\linewidth]{figures/psi_5_color.pdf}\label{fig:psi5}
+		\includegraphics[width=0.5\linewidth]{figures/psi_5_color.pdf}\label{fig:psi5}
 	}
 	\subfloat[10-\fire{}.]{
-		\includegraphics[width=0.45\linewidth]{figures/psi_10_color.pdf}\label{fig:psi10}
+		\includegraphics[width=0.5\linewidth]{figures/psi_10_color.pdf}\label{fig:psi10}
 	}
 	\caption{Graphs of different \psifire{} scoring functions, having $\psi \in \{1, 3, 5, 10\}$.}\label{fig:psi}
 \end{figure}
@@ -373,17 +374,17 @@ where $\psi$ is the fidelity/readability trade-off extent, $p$ is a measure of t
 %-----------------------------------------------------%
 \subsection{Variables and parameters}\label{sec:fire-var}
 %-----------------------------------------------------%
-As for the predictive loss $p$, A good measure for the predictive loss $p$ in regression tasks is the mean absolute error (MAE) of the extractor's predictions w.r.t.\ the underlying BB predictions or the data set outputs, depending on the need.
+As for the predictive loss $p$, a good measure for the predictive loss $p$ in regression tasks is the mean absolute error (MAE) of the extractor's predictions w.r.t.\ the underlying BB predictions or the data set outputs, depending on the need.
 %
 For classification tasks, it is possible to use metrics anti-correlated with the accuracy score, e.g., $1-accuracy$.
 %
-The presented \fire{} score adopts the mean absolute error metrics for regression, but it may be substituted with the mean squared error without substantial differences since both of them are generally correlated.
+The presented \fire{} score adopts the mean absolute error metric for regression, but it may be substituted with the mean squared error without substantial differences since both of them are generally correlated.
 %
 Analogously, metrics inversely proportional to the R$^2$ value may be also exploited.
 
 As for the readability loss $r$, the total amount of output rules is a suitable metric and thus it is the one adopted to calculate the \fire{} score.
 %
-More complex options will be evaluated in the future, e.g., taking into account the complexity of individual rules.
+More complex options will be evaluated in the future, e.g., by taking into account the complexity of individual rules.
 
 Finally, the $\psi$ parameter -- the only user-defined parameter -- describes how much the predictive loss can be penalised w.r.t.\ the readability loss.
 %
@@ -393,7 +394,7 @@ In particular, $\psi=1$ assigns the same importance to both losses.
 %
 Growing $\psi$ values tend to neglect the readability loss impact.
 %
-In other words, given the aforementioned readability loss formulation and by assuming to have extracted $m$ rules, if users set $\psi=n$ the \fire{} score will consider only $\frac{m}{n}$ rules, rounded up to the nearest integer.
+In other words, given the aforementioned \fire{} score formulation and by assuming to have extracted $m$ rules, if users set $\psi=n$ the \fire{} score will consider only $\frac{m}{n}$ rules, rounded up to the nearest integer.
 
 %-----------------------------------------------------%
 \subsection{Function domain}\label{sec:fire-domain}
@@ -406,13 +407,11 @@ Limiting the admissible $\psi$ values to $\mathbb{N}_1$ may be also reasonable, 
 %
 On the other hand, the $p$ parameter is a measurement of a predictive error, so it may be equal to 0 in the best case, or arbitrarily larger otherwise since there is no upper bound to the predictive error of a model.
 %
-Finally, $r$ is an integer number greater or equal to 1, since it represents a discrete quantity.
+Finally, $r$ is an integer number greater or equal to 1, since it represents the number of extracted rules, that is a discrete quantity equal to 1 (in the best case) or larger (otherwise).
 %
 However, the admissible values for this parameter have been extended from $\mathbb{N}_1$ to $\mathbb{R}_{\geq 1}$ for the sake of flexibility, analogously to the range for $\psi$.
 %
 This choice enables, for instance, the \fire{} score calculation for averaged sets of extractors trained with the same hyper-parameters, resulting in a more robust score.
-%
-Similarly to the $p$ parameter, there is no upper bound for $r$.
 
 As a result of the observations above, the \fire{} score is defined as a continuous (yet non-differentiable) function in the aforementioned domain and it may assume any non-negative value.
 %
@@ -421,26 +420,26 @@ Therefore, the score is a function bounded from below by 0.
 %-----------------------------------------------------%
 \subsection{Score meaning}\label{sec:fire-meaning}
 %-----------------------------------------------------%
-\textbf{formula explanation in words: why multiplication? Why a division? Why 0.05?...ALL: give the intuition behind}
 
 In the following, we use the notation \psifire{}($p$, $r$) as a clearer alias of \fire{}($\psi$, $p$, $r$) and we consider without loss of generality the \psifire{}($\cdot$) function as a bivariate function, by assuming the $\psi$ parameter fixed \emph{a priori}.
 
-\begin{figure*}[tb]\centering
+\captionsetup[subfigure]{width=.45\linewidth}
+\begin{figure}[tb]\centering
 	\subfloat[Trend of 5-\fire{} w.r.t.\ readability loss for different predictive loss values.]{
-		\includegraphics[width=\twoinarow]{figures/readVSfire.pdf}\label{fig:readVSfire}
+		\includegraphics[width=0.5\linewidth]{figures/readVSfire.pdf}\label{fig:readVSfire}
 	}
 	\subfloat[Trends of several \psifire{} functions having equal predictive loss w.r.t.\ readability loss.]{
-		\includegraphics[width=\twoinarow]{figures/readVSfirePSI.pdf}\label{fig:readVSfirePSI}
+		\includegraphics[width=0.5\linewidth]{figures/readVSfirePSI.pdf}\label{fig:readVSfirePSI}
 	}
 	\\
 	\subfloat[Trend of 5-\fire{} w.r.t.\ predictive loss for different readability loss values.]{
-		\includegraphics[width=\twoinarow]{figures/maeVSfire.pdf}\label{fig:maeVSfire}
+		\includegraphics[width=0.5\linewidth]{figures/maeVSfire.pdf}\label{fig:maeVSfire}
 	}
-	\subfloat[Trends of several \psifire{} functions having equal readability loss w.r.t.\ predictive loss.]{
-		\includegraphics[width=\twoinarow]{figures/maeVSfirePSI.pdf}\label{fig:maeVSfirePSI}
+	\subfloat[Trends of several \psifire{} functions with equal readability loss w.r.t.\ predictive loss.]{
+		\includegraphics[width=0.5\linewidth]{figures/maeVSfirePSI.pdf}\label{fig:maeVSfirePSI}
 	}
 	\caption{Projections of several \psifire{} functions w.r.t.\ different values of $\psi$, readability loss and predictive loss.}\label{fig:proj}
-\end{figure*}
+\end{figure}
 
 The \fire{} score has been formulated to assign low scores to desirable extractors.
 %
@@ -450,13 +449,17 @@ For this reason, it is a multiplicative score between the two parameters.
 %
 The ceiling function appearing as the second factor of the score has the purpose to give a step-function shape to the \fire{} score.
 %
-The exact shape of the steps is regulated through the $\psi$ parameter.
+The exact shape of the steps is regulated through the $\psi$ parameter, acting as a user-defined sensitivity threshold and thus appearing as denominator in the second term of the score formulation.
 %
 By setting $\psi=n$, users impose these steps to have a length equal to $n$.
 %
 Since a flat step would assign the same \psifire{} score to extractors having the same predictive loss and a different but similar readability loss (e.g., $r$ = 1 and 2, respectively, and $\psi=10$), a third factor is queued to the score definition to discern amongst the extractors lying on the same step which one has to be considered the best.
 %
+We found that an exponent equal to 0.05 allow the scoring function to preserve all its peculiarities, at the same time adding the desired increasing trend to the step function.
+%
 In this way the \fire{} score keeps the step-function shape but becomes an increasing monotonic function (for any $p>0$, since $\psi\textrm{-}\fire{}(0, r)=0, \forall r, \forall \psi$).
+%
+We stress here that $p=0$ is a theoretically possible scenario, but it is practically impossible to obtain a model having no predictive error.
 %
 Examples of \psifire{} graphs are reported in \Cref{fig:psi}, for different values of $\psi$, $p$ and $r$.
 
@@ -489,6 +492,8 @@ Alternatively, \Cref{eq:projP,eq:projR} can be substituted by the following cond
 		\end{split}\label{eq:partial}
 	\end{equation}
 \end{description}
+%
+\Cref{eq:projP,eq:projR,eq:partial} also hold by substituting $<$ with $>$.
 
 The increasing trend of the score may be observed in \Cref{fig:proj} and it is demonstrated through its partial derivatives.
 %
@@ -513,11 +518,14 @@ always positive for $p>0$ and defined in the whole domain except for $\frac{r}{\
 The derivative is 0 for $p=0$, indeed in this case the \psifire{} score is always 0 regardless of the values of $\psi$ and $r$.
 
 %%%%%%%%%%%%%%%%%%%%%%%
-\section{About \fire{}: some considerations}
+\section{On the practical use of \fire{}}
 %%%%%%%%%%%%%%%%%%%%%%%
-\textbf{aggiungere un cappello alle due sezioni: cosa vogliamo far vedere spiegare in a nutshell?}
 
-\subsection{Comparing Algorithms with \fire{}}
+In this section considerations about the practical application of the \fire{} score are reported, in order to highlight its effectiveness but also to further explain the score meaning and the importance of the $\psi$ parameter.
+%
+Accordingly, in \Cref{ssec:comp} several theoretical examples of the \fire{} score applications are explained, together with corresponding observations, whereas in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
+
+\subsection{Comparing algorithms with \fire{}}\label{ssec:comp}
 
 \begin{figure}
 	\centering
@@ -543,7 +551,7 @@ The same condition holds for all extractors having the same 1-\fire{} score valu
 %
 This is the case, for example, of extractors providing 2, 4, 6 and 8 rules associated with MAE of 19.3, 9.3, 6.1 and 4.5, respectively.
 %
-All these models are considered \emph{equivalent} on the basis of the 1-fire{} score.
+All these models are considered \emph{equivalent} on the basis of the 1-\fire{} score.
 %
 Conversely, a model able to extract 4 rules with a predictive error of 5.0 is considered \emph{better}, since it has a smaller 1-\fire{} score and thus it lies in the graph under the red isoline.
 %
@@ -552,6 +560,8 @@ More precisely, $1\textrm{-}\fire(5.0, 4)=21.4$.
 On the other hand, an extractor providing 6 rules with MAE = 12.0 is considered \emph{worse}, since its 1-\fire{} score is greater than 40.0 and thus it graphically lies above the red isoline.
 %
 Indeed, $1\textrm{-}\fire(12.0, 6)=78.7$.
+%
+These two latter examples have the purpose of demonstrating that the \fire{} score is still effective even if only one amongst the predictive or readability losses is subject to changes.
 
 \Cref{fig:boundaries} clearly highlights how the \fire{} score identifies an exact boundary separating, w.r.t.\ a given extractor, the sets of equivalent, worse and better extractors.
 %
@@ -562,14 +572,16 @@ Furthermore, the isoline depicts the fidelity/readability trade-off correlated t
 By observing the red isoline it is noticeable how a doubling of the readability loss (e.g., from 2 to 4) is accepted only if it is approximately balanced with a halving of the predictive loss.
 %
 The curve can be also read in the opposite sense, e.g., a doubling of the predictive loss is accepted only when (approximately) compensated by a readability loss halving.
+%
+With this reading key it is possible to exploit the \fire{} isolines to analytically study better and worse extraction procedures w.r.t.\ a fixed one, by taking into consideration both increases and decreases of the predictive loss and/or of the readability loss.
 
-Finally, we exploit the same Figure to stress the fact that the isoline presents an asymptotic trend when the $p$ and $r$ parameters tend to infinity.
+Finally, we exploit the same figure to stress the fact that the isoline presents an asymptotic trend when the $p$ and $r$ parameters tend to infinity.
 %
 This behaviour reflects the actual quality of the knowledge provided by SKE techniques.
 %
 Indeed, when the number of rules or the predictive error are very high, the evaluated knowledge has low quality and it is no more a relevant task to have a fine-grained measure of \emph{how} a loss should be compensated by the other.
 
-\subsection{On the selection of the $\psi$ Parameter}
+\subsection{Tuning the $\psi$ parameter}\label{ssec:psi}
 
 \begin{figure}
 	\centering
@@ -605,7 +617,7 @@ An SKE algorithm extracting 8 rules with MAE = 0.5 (orange cross) has the same \
 %
 The models are thus equivalent according to both of the considered scoring functions.
 %
-Analogously, by assuming two extractors providing 2 and 3 output rules with predictive errors equal to 0.5 and 2.0, respectively (fuchsia and purple cross in the Figure), both scores are unanimous in evaluating the former as a better extraction procedure and in considering worse the latter.
+Analogously, by assuming two extractors providing 2 and 3 output rules with predictive errors equal to 0.5 and 2.0, respectively (fuchsia and purple cross in the figure), both scores are unanimous in evaluating the former as a better extraction procedure and in considering worse the latter.
 
 Different behaviours can be observed, for instance, by selecting an extracted knowledge composed of a single rule with MAE = 1.5 (green cross).
 %
@@ -659,7 +671,7 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 	\subfloat[\gridex{} (4 rules).]{
 		\includegraphics[width=\fourinarow]{figures/classif/knn-gridex4.pdf}\label{fig:gridex4}
 	}
-	\subfloat[\gridex{} (6 rules).]{
+	\subfloat[\gridex{} (8 rules).]{
 		\includegraphics[width=\fourinarow]{figures/classif/knn-gridex8.pdf}\label{fig:gridex8}
 	}
 	\\
@@ -682,15 +694,15 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 		& & & $\psi=1$ & $\psi=2$ & $\psi=3$ \\
 		\midrule\midrule
 		9-NN & 0.97,~~~~-~~~ & - & - & - & - \\
-		\cart{} & 0.95, 0.05 & 3 & 0.17 & 0.11 & 0.06 \\
-		\iter{} & 0.89, 0.11 & 3 & 0.36 & 0.24 & 0.12 \\
-		\creepy{} & 0.93, 0.07 & 3 & 0.22 & 0.14 & 0.07 \\
+		\cart{} & 0.95, 0.05 & 3 & 0.16 & 0.11 & 0.05 \\
+		\iter{} & 0.89, 0.11 & 3 & 0.35 & 0.23 & 0.12 \\
+		\creepy{} & 0.93, 0.07 & 3 & 0.22 & 0.15 & 0.07 \\
 		(4 feat.) & & & & & \\
-		\creepy{} & 0.91, 0.09 & 3 & 0.27 & 0.18 & 0.09 \\
+		\creepy{} & 0.91, 0.09 & 3 & 0.29 & 0.19 & 0.09 \\
 		(2 feat.) & & & & & \\
-		\gridex{} & 0.94, 0.06 & 3 & 0.18 & 0.12 & 0.06 \\
-		\gridex{} & 0.81, 0.19 & 4 & 0.80 & 0.40 & 0.40 \\
-		\gridex{} & 0.97, 0.03 & 8 & 0.26 & 0.13 & 0.11 \\
+		\gridex{} & 0.94, 0.06 & 3 & 0.19 & 0.13 & 0.06 \\
+		\gridex{} & 0.81, 0.19 & 4 & 0.81 & 0.41 & 0.41 \\
+		\gridex{} & 0.97, 0.03 & 8 & 0.27 & 0.13 & 0.10 \\
 		\bottomrule
 	\end{tabular}
 	\caption{Quality assessments for the knowledge extracted by different SKE algorithms from a 9-NN for the Iris data set.}
@@ -706,8 +718,12 @@ The adopted extractors are the following: \cart{}~\cite{breiman1984classificatio
 All these techniques have been applied to a $k$-nearest neighbour ($k$-NN) classifier, having $k=9$.
 %
 Since they all are pedagogical algorithms, the provided output knowledge has been extracted only by observing the input/output response of the 9-NN.
+%
+We highlight that the choice of a simple data set is only bound to the possibility of easily depicting the decision boundaries given by the models.
+%
+Since the \fire{} score is based on the predictive and readability loss notions, it can be applied to any model for which it is possible to express a predictive loss and a readability loss, regardless of the underlying model and data set complexity and peculiarities, and without any loss of generalisation.
 
-\cart{} induces a decision tree classifier on the 9-NN predictions and it has been executed with the default parameters.
+To better understand the example, we recall that \cart{} induces a decision tree classifier on the 9-NN predictions and it has been executed with the default parameters.
 
 On the other hand, \iter{}, \creepy{} and \gridex{} produce a hypercubic partitioning of the input feature space according to different strategies.
 %
@@ -753,17 +769,17 @@ For our experiments we trained 2 \creepy{} instances, one considering all the 4 
 
 The classification accuracy of each extractor, as well as that of the 9-NN, has been reported in \Cref{tab:experiments}.
 %
-The Table also shows the number of extracted rules, representing the readability loss $r$ of the extractors.
+The table also shows the number of extracted rules, representing the readability loss $r$ of the extractors.
 %
 Analogously, the predictive loss $p$ is reported as $1-accuracy$.
 %
 Finally, the last three columns report the \psifire{} scores associated with each extractor for different values of $\psi$.
 %
-Data has been gathered on single executions since the goal of this Section is to highlight how to exploit the \fire{} score to carry out comparisons.
+Data has been gathered on single executions since the goal of this section is to highlight how to exploit the \fire{} score to carry out comparisons, and not to assess the robustness of the upstream extraction procedures.
 
 A graphical representation of the decision boundaries given by the 9-NN and the extractors are reported in \Cref{fig:experiments}.
 %
-The bottom row of the Figure reports the isolines for the \psifire{} scores adopted in the experiments.
+The bottom row of the figure reports the isolines for the \psifire{} scores adopted in the experiments.
 %
 It is important to focus on the fact that it is not possible to obtain less than 3 rules, since the Iris data set describes 3 output classes and in the best case extracted knowledge contains a rule per distinct class.
 
@@ -771,20 +787,11 @@ From \Cref{tab:experiments} and \Cref{fig:experiments} it is evident that \cart{
 %
 Indeed, it has the lowest \psifire{} score regardless of the adopted $\psi$.
 %
-This result is true and acceptable since \cart{} is the algorithm providing the smallest amount of rules with the smallest predictive loss.
+This result is true and acceptable since \cart{} is the algorithm providing the smallest amount of rules with the smallest predictive error.
 
 Different conclusions may be drawn by comparing the \gridex{} instance providing 8 output rules and the 2 \creepy{} instances.
 %
-Indeed, by observing the corresponding \psifire{} scores and the equivalent isolines in the Figure, \gridex{} may be considered better than one, both or none of the \creepy{} instances when adopting $\psi=1$, 2 or 3, respectively.
-
-{\color{red}
-Enlarge the discussion: 
-\begin{itemize}
-\item We can see the extraction with better readability and predictive performance leads to the lowest FiRe score, but not on the contrary. Besides, the authors do not discuss the situation that both readability and predictive performance are not improved at the same time.
-\item If readability and predictive performance are not improved at the same time, is the FiRe score still effective?
-\item Only the small Iris dataset was used for the training test, rather than training on the larger dataset. Generally, more knowledge will be extracted with larger datasets, and this part needs further explanation. (RIUSCIAMO A FARE TEST SU ALTRO DATASET?
-\end{itemize}
-}
+Indeed, by observing the corresponding \psifire{} scores and the equivalent isolines in the figure, \gridex{} may be considered better than one, both or none of the \creepy{} instances when adopting $\psi=1$, 2 or 3, respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}\label{sec:conclusions}
@@ -796,11 +803,11 @@ More precisely, it is a compact score encompassing both a readability assessment
 %
 The \fire{} score may also be applied together with automatic parameter-tuning procedures.
 %
-We showed the properties of the scoring function and a rigorous mathematical formulation has been provided.
+We show here the properties of the scoring function and a rigorous mathematical formulation is provided.
 
 Our future works will be focused on the enhancement of the \fire{} score concerning its readability loss parameter, with a more expressive formulation than the mere amount of rules provided as output by an extractor.
 %
-Furthermore, we plan to exploit this score inside the \pedro{} procedure \cite{putciteRefer3person} to automatically find the best parameter values for \gridex{} and \gridrex{} \cite{putcite}.
+Furthermore, we plan to exploit this score to give robustness to the \pedro{} procedure \cite{gridrex-kr2022}, a tool to automatically find the best parameter values for \gridex{} and \gridrex{} \cite{gridrex-kr2022}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
