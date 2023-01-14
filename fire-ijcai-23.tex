@@ -57,14 +57,14 @@
 \DeclareMathOperator*{\union}{\bigcup}
 
 \newcommand{\xai}{XAI}
-\newcommand{\psyke}{\textsc{Omitted}}%PSyKE
+\newcommand{\psyke}{\textsc{PSyKE}}
 \newcommand{\real}{\textsc{REAL}}
 \newcommand{\trepan}{\textsc{Trepan}}
 \newcommand{\iter}{\textsc{Iter}}
 \newcommand{\gridex}{GridEx}
 \newcommand{\gridrex}{GridREx}
 \newcommand{\cream}{\textsc{CREAM}}
-\newcommand{\creepy}{\textsc{Omitted}} %CReEPy
+\newcommand{\creepy}{\textsc{CReEPy}}
 \newcommand{\crash}{\textsc{CRASH}}
 \newcommand{\pedro}{\textsc{PEDRO}}
 \newcommand{\cart}{\textsc{Cart}}
@@ -134,7 +134,7 @@
 
 % Single author syntax
 \author{
-    Anonymous submission
+    Anonymous submission%ricordarsi di cambiare la ref per creepy e di aggiungere quelle per psyke
 }
 
 % Multiple author syntax (remove the single-author syntax above and the \iffalse ... \fi here)
@@ -179,8 +179,6 @@ A rigorous mathematical formulation is provided along with several practical exa
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%
-\textbf{Please note that in this manuscript all occurrences of named works and bibliographic references possibly leading to the authors' identity have been shaded with \creepy{} and [?]\ placeholders, respectively. Appropriate names and references will be inserted in case of acceptance.}
-
 One of the main strengths of machine learning (ML) models is their ability to provide exceptionally accurate predictions when applied in (roughly) every conceivable scenario~\cite{rocha2012far}.
 %
 Unfortunately, the most powerful ML predictors (such as deep neural networks, for instance) present a high price in terms of human interpretability of their outputs.
@@ -711,9 +709,9 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 
 The effectiveness of the \fire{} score to evaluate and compare the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.\footnote{Anonymised code available at \url{https://anonymous.4open.science/r/FiRe/demo/DemoXXXX-8XXXX-7.ipynb}}
 %
-In particular, the \psyke{} framework~\cite{putCitations} has been used to train a BB predictor and a set of extractors on the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.%\cite{psyke-woa2021,psyke-ia2022}
+In particular, the \psyke{} framework~\cite{psyke-woa2021} has been used to train a BB predictor and a set of extractors on the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.%\cite{psyke-woa2021,psyke-ia2022}
 %
-The adopted extractors are the following: \cart{}~\cite{breiman1984classification}, \iter{}~\cite{huysmans2006iter}, \creepy{}~\cite{putCitations} and \gridex{}~\cite{gridex-extraamas2021}.
+The adopted extractors are the following: \cart{}~\cite{breiman1984classification}, \iter{}~\cite{huysmans2006iter}, \creepy{}~\cite{psyke-woa2021} and \gridex{}~\cite{gridex-extraamas2021}.
 %
 All these techniques have been applied to a $k$-nearest neighbour ($k$-NN) classifier, having $k=9$.
 %
