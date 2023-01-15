@@ -220,8 +220,9 @@ Accordingly, in this paper we propose the \fire{} score as a compact and express
 
 The paper is organized as follows.
 Section \ref{sec:motivation} discusses the motivations of the work as well as some considerations around the topic.
-Section \ref{sec:fire} contains the main contribution of this work and defines the \emph{fire score} for the evaluation of symbolic knowledge.
-Section \ref{sec:use} and Section \ref{sec:experiments} discuss respectively the use of the metric as well as some first experiments.
+%
+\Cref{sec:fire} contains the main contribution of this work and defines the \emph{\fire{} score} for the evaluation of symbolic knowledge.
+\Cref{sec:use,sec:experiments} discuss the use of the metric as well as some explanatory experiments, respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivations}\label{sec:motivation}
@@ -262,7 +263,7 @@ These dimensions are:
 	\item the \emph{predictive performance} w.r.t.\ the data set output features.
 \end{inlinelist}
 
-The readability from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracts a decision tree with depth 10) \cite{czarnowski2016}.
+The readability from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracting a decision tree with depth 10) \cite{czarnowski2016}.
 % 
 It is evident that an evaluation made only at this level can be considered rather superficial since a wider set of indicators should be taken into account for a fair evaluation \cite{sabbatini2022-metrics}.
 %
@@ -288,13 +289,13 @@ Analogously, decision tables usually represent a rule per row (or column), so th
 %
 Hence, all the different output formats in terms of shape are traceable to each other to be compared fairly.
 
-There exist remarkable differences, however, between \emph{ordered} and \emph{unordered} lists, since in the first case rules are evaluated from the top to the bottom, and for this reason, bottom rules may be simplified by assuming as trivially false the conditions represented in the top rules.
+There exist remarkable differences, however, between \emph{ordered} and \emph{unordered} lists, since in the first case rules are evaluated from the top to the bottom and, for this reason, bottom rules may be simplified by assuming as trivially false the conditions represented in the top rules.
 %
 This leads to more concise knowledge representations, but at the cost of human readability, since to interpret the output of the bottommost rule it is necessary to acknowledge as false all the others.
 %
 As a consequence, it is evident how the mere amount of output rules is a rough but reliable indicator of readability, but the readability of single rules presents tricky challenges that should be carefully investigated.
 
-Furthermore, rules (that comes usually in form of logic rules) are usually implications having a set of preconditions (e.g., describing an input feature space subregion) and a postcondition (i.e., the output associated with inputs belonging to the subregion).
+Furthermore, rules (that come usually in form of logic rules) are usually implications having a set of preconditions (e.g., describing an input feature space subregion) and a postcondition (i.e., the output associated with inputs belonging to the subregion).
 %
 Preconditions and postconditions present different degrees of intrinsic readability.
 %
@@ -336,7 +337,7 @@ On the other hand, as a final consideration, postconditions may be constant valu
 %
 In the latter case, readability is obviously reduced.
 
-These trivial examples show how quantitatively measuring the readability of ``extracted knowledge" is not so trivial, and also leads to non-quantitative and subjective parameters to be taken into consideration. For this reason, in this work, we will limit the metric to take into account only the number of rules as an index of human interpretability---which is, in any case, what is reflected in the literature today.
+These basic examples show how quantitatively measuring the readability of ``extracted knowledge" is not so trivial, and also leads to non-quantitative and subjective parameters to be taken into consideration. For this reason, in this work, we will limit the metric to take into account only the number of rules as an index of human interpretability---which is, in any case, what is reflected in the literature today.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{The \fire{} score}\label{sec:fire}
@@ -376,7 +377,7 @@ where $\psi$ is the fidelity/readability trade-off extent, $p$ is a measure of t
 %-----------------------------------------------------%
 \subsection{Variables and parameters}\label{sec:fire-var}
 %-----------------------------------------------------%
-As for the predictive loss $p$, a good measure for the predictive loss $p$ in regression tasks is the mean absolute error (MAE) of the extractor's predictions w.r.t.\ the underlying BB predictions or the data set outputs, depending on the need.
+As for the predictive loss $p$, a good measure in regression tasks is the mean absolute error (MAE) of the extractor's predictions w.r.t.\ the underlying BB predictions or the data set outputs, depending on the need.
 %
 For classification tasks, it is possible to use metrics anti-correlated with the accuracy score, e.g., $1-accuracy$.
 %
@@ -593,7 +594,7 @@ Indeed, when the number of rules or the predictive error are very high, the eval
 
 It is of fundamental importance to carefully choose the $\psi$ parameter of \fire{}.
 %
-\Cref{fig:readVSfirePSI} already shown that larger values of $\psi$ reduce the impact of the readability loss.
+\Cref{fig:readVSfirePSI} already showed that larger values of $\psi$ reduce the impact of the readability loss.
 %
 However, it is important to know that different $\psi$ values may lead to \emph{opposite} results when applied to compare the same extractors.
 %
@@ -805,7 +806,7 @@ More precisely, it is a compact score encompassing both a readability assessment
 %
 The \fire{} score may also be applied together with automatic parameter-tuning procedures.
 %
-We show here the properties of the scoring function and a rigorous mathematical formulation is provided.
+We show here the properties of the scoring function and a rigorous mathematical formulation is also provided.
 
 Our future works will focus on enhancing the \fire{} score concerning its readability loss parameter, with a more expressive formulation than the mere amount of rules provided as output by an extractor.
 %
