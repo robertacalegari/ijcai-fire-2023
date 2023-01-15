@@ -181,7 +181,7 @@ A rigorous mathematical formulation is provided along with several practical exa
 %%%%%%%%%%%%%%%%%%%%%%%
 One of the main strengths of machine learning (ML) models is their ability to provide exceptionally accurate predictions when applied in (roughly) every conceivable scenario~\cite{rocha2012far}.
 %
-Unfortunately, the most powerful ML predictors (such as deep neural networks, for instance) present a high price in terms of human interpretability of their outputs.
+Unfortunately, the most powerful ML predictors -- such as deep neural networks, for instance -- present a high price in terms of human interpretability of their outputs.
 %
 Indeed, they acquire knowledge during a training phase and store it in a sub-symbolic way, in the form of internal parameters.
 %
@@ -212,13 +212,16 @@ The former can be easily assessed via the same metrics adopted to measure the pr
 %
 Conversely, the latter may be measured through different indicators, however, to the best of our knowledge, a widely-acknowledged, well-founded, and sound definition has not been yet formulated.
 %
-Comparisons performed by users, as well as automated algorithmic comparisons, can surely benefit from a unified scoring function encompassing both concepts of predictive performance and readability associated with the knowledge provided by SKE techniques.
+Comparisons performed by users and automated algorithmic comparisons can surely benefit from a unified scoring function encompassing both concepts of predictive performance and readability associated with the knowledge provided by SKE techniques.
 %
-\textbf{....RC: aggiungi che andiamo verso AutoML....molto molto usato oggi}
+The definition of this kind of scoring is the fundamental brick for moving toward automated machine learning (AutoML) \cite{karmaker2021automl}.
 %
 Accordingly, in this paper we propose the \fire{} score as a compact and expressive metric to evaluate and compare different knowledge extractors, also in association with automated parameter tuning procedures.
 
-The paper is organized as follows....\textbf{....RC: TBC}...
+The paper is organized as follows.
+Section \ref{sec:motivation} discusses the motivations of the work as well as some considerations around the topic.
+Section \ref{sec:fire} contains the main contribution of this work and defines the \emph{fire score} for the evaluation of symbolic knowledge.
+Section \ref{sec:use} and Section \ref{sec:experiments} discuss respectively the use of the metric as well as some first experiments.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivations}\label{sec:motivation}
@@ -246,7 +249,8 @@ Comparisons between different instances of the same extractor, or different extr
 \end{inlinelist}
 %
 However, such a comparison in the literature is always done manually, just looking at the predictive performance of the extractor and the readability, separately.
-So, to the best of our knowledge, not only an automatic way of evaluation is missing in the literature, but also the definition of a metric to synergically combine predictive performance and readability to measure the quality of the extracted knowledge as a unique indicator.
+%
+To the best of our knowledge, not only an automatic way of evaluation is missing in the literature, but also the definition of a metric to synergically combine predictive performance and readability to measure the quality of the extracted knowledge as a unique indicator.
 % while the definition of a metric for automatic evaluation is still missing. 
 
 The predictive performance of the extracted knowledge may be assessed w.r.t.\ 2 different dimensions by using the same scoring function adopted for the underlying BB.
@@ -258,9 +262,9 @@ These dimensions are:
 	\item the \emph{predictive performance} w.r.t.\ the data set output features.
 \end{inlinelist}
 
-The readability from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracts a decision tree with depth 10) \cite{literature}.\textbf{@RC: ma sai, a me pare una cosa banale. Cmq si potrebbe citare questo \url{https://link.springer.com/chapter/10.1007/978-3-319-39627-9\_39}}
+The readability from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracts a decision tree with depth 10) \cite{czarnowski2016}.
 % 
-It is evident that an evaluation made only at this level can be considered rather superficial, since a wider set of indicators should be taken into account for a fair evaluation \cite{sabbatini2022-metrics}.
+It is evident that an evaluation made only at this level can be considered rather superficial since a wider set of indicators should be taken into account for a fair evaluation \cite{sabbatini2022-metrics}.
 %
 In particular, a readability metric should at least consider:
 %
@@ -271,9 +275,9 @@ In particular, a readability metric should at least consider:
 %
 However, both these items may require further investigations to discern between more and less readable knowledge representations and how to formalize them.
 
-%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{On the knowledge readability: considerations and examples}\label{ssec:motivation}
-%%%%%%%%%%%%%%%%%%%%%%%
+%-----------------------------------------------------------%
+\subsection{On the knowledge readability: considerations and examples}\label{ssec:consideration}
+%-----------------------------------------------------------%
 As mentioned above, knowledge extracted from a BB via SKE comes in the form of lists, decision trees, or decision tables \cite{guidotti2018survey,huysmans2011empirical}. 
 %
 In the following, some considerations and examples of different levels of readability of these outputs are discussed, to make the reader understand all the features that a readability evaluation metric should take into account when formulated.
@@ -332,7 +336,7 @@ On the other hand, as a final consideration, postconditions may be constant valu
 %
 In the latter case, readability is obviously reduced.
 
-These trivial examples show how quantitatively measuring the readability of "extracted knowledge" is not so trivial, and also leads to non-quantitative and subjective parameters to be taken into consideration. For this reason, in this work, we will limit the metric to take into account only the number of rules as an index of human interpretability---which is, in any case, what is reflected in the literature today.
+These trivial examples show how quantitatively measuring the readability of ``extracted knowledge" is not so trivial, and also leads to non-quantitative and subjective parameters to be taken into consideration. For this reason, in this work, we will limit the metric to take into account only the number of rules as an index of human interpretability---which is, in any case, what is reflected in the literature today.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{The \fire{} score}\label{sec:fire}
@@ -447,13 +451,13 @@ For this reason, it is a multiplicative score between the two parameters.
 %
 The ceiling function appearing as the second factor of the score has the purpose to give a step-function shape to the \fire{} score.
 %
-The exact shape of the steps is regulated through the $\psi$ parameter, acting as a user-defined sensitivity threshold and thus appearing as denominator in the second term of the score formulation.
+The exact shape of the steps is regulated through the $\psi$ parameter, acting as a user-defined sensitivity threshold and thus appearing as the denominator in the second term of the score formulation.
 %
 By setting $\psi=n$, users impose these steps to have a length equal to $n$.
 %
 Since a flat step would assign the same \psifire{} score to extractors having the same predictive loss and a different but similar readability loss (e.g., $r$ = 1 and 2, respectively, and $\psi=10$), a third factor is queued to the score definition to discern amongst the extractors lying on the same step which one has to be considered the best.
 %
-We found that an exponent equal to 0.05 allow the scoring function to preserve all its peculiarities, at the same time adding the desired increasing trend to the step function.
+We found that an exponent equal to 0.05 allows the scoring function to preserve all its peculiarities, at the same time adding the desired increasing trend to the step function.
 %
 In this way the \fire{} score keeps the step-function shape but becomes an increasing monotonic function (for any $p>0$, since $\psi\textrm{-}\fire{}(0, r)=0, \forall r, \forall \psi$).
 %
@@ -516,7 +520,7 @@ always positive for $p>0$ and defined in the whole domain except for $\frac{r}{\
 The derivative is 0 for $p=0$, indeed in this case the \psifire{} score is always 0 regardless of the values of $\psi$ and $r$.
 
 %%%%%%%%%%%%%%%%%%%%%%%
-\section{On the practical use of \fire{}}
+\section{On the practical use of \fire{}}\label{sec:use}
 %%%%%%%%%%%%%%%%%%%%%%%
 
 In this section considerations about the practical application of the \fire{} score are reported, in order to highlight its effectiveness but also to further explain the score meaning and the importance of the $\psi$ parameter.
@@ -639,7 +643,7 @@ The dual situation can be encountered with knowledge having 5 rules and MAE = 0.
 %
 In this case the knowledge quality is considered better when evaluated through the 6-\fire{} score and worse with the 2-\fire{} score.
 
-Given all these remarks, we suggest selecting the most adequate value of the $\psi$ parameter for the task at hand after having observed the corresponding isolines.
+Given all these remarks, we suggest selecting the most adequate value of the $\psi$ parameter for the task after observing the corresponding isolines.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Experiments and discussion}\label{sec:experiments}
@@ -803,7 +807,7 @@ The \fire{} score may also be applied together with automatic parameter-tuning p
 %
 We show here the properties of the scoring function and a rigorous mathematical formulation is provided.
 
-Our future works will be focused on the enhancement of the \fire{} score concerning its readability loss parameter, with a more expressive formulation than the mere amount of rules provided as output by an extractor.
+Our future works will focus on enhancing the \fire{} score concerning its readability loss parameter, with a more expressive formulation than the mere amount of rules provided as output by an extractor.
 %
 Furthermore, we plan to exploit this score to give robustness to the \pedro{} procedure \cite{gridrex-kr2022}, a tool to automatically find the best parameter values for \gridex{} and \gridrex{} \cite{gridrex-kr2022}.
 
