@@ -1,16 +1,14 @@
-%%%% ijcai23.tex
+%%%% kr-instructions.tex -- version 1.3 (11-Jan-2021)
 
-\typeout{IJCAI--23 Instructions for Authors}
+\typeout{KR2023 Instructions for Authors}
 
-% These are the instructions for authors for IJCAI-23.
+% These are the instructions for authors for KR-23.
 
 \documentclass{article}
 \pdfpagewidth=8.5in
 \pdfpageheight=11in
 
-% The file ijcai23.sty is a copy from ijcai22.sty
-% The file ijcai22.sty is NOT the same as previous years'
-\usepackage{ijcai23}
+\usepackage{kr}
 
 % Use the postscript times font!
 \usepackage{times}
@@ -24,20 +22,20 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{booktabs}
-\usepackage{color}
-\usepackage[noend]{algpseudocode}
 \usepackage{algorithm}
 %\usepackage{algorithmic}
-\usepackage[switch]{lineno}
-\usepackage{cleveref}
+\usepackage{xcolor}
+\usepackage[noend]{algpseudocode}
+\urlstyle{same}
 \usepackage[inline]{enumitem}
 \usepackage{subfig}
+\usepackage{cleveref}
 
 \usepackage{newfloat}
 \usepackage{listings}
 \DeclareCaptionStyle{ruled}{labelfont=normalfont,labelsep=colon,strut=off} % DO NOT CHANGE THIS
 \lstset{%
-	basicstyle={\footnotesize\ttfamily},% footnotesize acceptable for monospace
+	basicstyle={\normalsize\ttfamily},% footnotesize acceptable for monospace
 	%numbers=left,numberstyle=\footnotesize,xleftmargin=2em,% show line numbers, remove this entire line if you don't want the numbers.
 	aboveskip=0pt,belowskip=0pt,%
 	showstringspaces=false,tabsize=2,breaklines=true,
@@ -47,9 +45,12 @@
 \newfloat{listing}{tb}{lst}{}
 \floatname{listing}{Listing}
 
+\newcommand{\citet}[1]{\citeauthor{#1}~(\citeyear{#1})}
+\newcommand{\citenop}[1]{\citeauthor{#1}~\citeyear{#1}}
 \newcommand{\continue}{\textbf{continue}}
 \newcommand{\undefined}{\textbf{undefined}}
 \newcommand{\New}[1]{\textbf{new} #1}
+\newcommand{\funskip}{\smallskip}
 %\newcommand{\Comment}[1]{$\triangleright$ #1}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -79,18 +80,7 @@
 \newcommand\threeinarow{.3375\linewidth}
 \newcommand\fourinarow{0.245\linewidth}
 
-\usepackage[inline]{enumitem}
-\usepackage{subfig}
-\usepackage{booktabs}
-\usepackage{amsmath}
-\usepackage{cleveref}
-
 \newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
-
-% Comment out this line in the camera-ready submission
-\linenumbers
-
-\urlstyle{same}
 
 % the following package is optional:
 %\usepackage{latexsym}
@@ -121,59 +111,42 @@
 % Also change the deadline and address for returning papers and the length and
 % page charge instructions.
 % Put where the files are available in the appropriate places.
-
-
-% PDF Info Is REQUIRED.
-% Please **do not** include Title and Author information
+%PDF Info Is REQUIRED.
 \pdfinfo{
-/TemplateVersion (IJCAI.2023.0)
+	/TemplateVersion (KR.2022.0, KR.2023.0)
 }
 
+%ricordarsi di cambiare la ref per creepy e di aggiungere quelle per psyke
 \title{Symbolic Knowledge-Extraction Evaluation Metrics: The \fire{} Score}
 
-
-% Single author syntax
-\author{
-    Anonymous submission%ricordarsi di cambiare la ref per creepy e di aggiungere quelle per psyke
+% Multiple author syntax
+\author{%
+	Federico Sabbatini$^1$\and
+	Roberta Calegari$^2$\\
+	\affiliations
+	$^1$Department of Pure and Applied Sciences (DiSPeA),\\University of Urbino\\
+	$^2$Alma AI -- Alma Mater Research Institute for Human-Centered Artificial Intelligence,\\University of Bologna\\
+	\emails
+	f.sabbatini1@campus.uniurb.it,
+	roberta.calegari@unibo.it
 }
 
-% Multiple author syntax (remove the single-author syntax above and the \iffalse ... \fi here)
-%\iffalse
-%\author{
-%First Author$^1$
-%\and
-%Second Author$^2$\and
-%Third Author$^{2,3}$\And
-%Fourth Author$^4$
-%\affiliations
-%$^1$First Affiliation\\
-%$^2$Second Affiliation\\
-%$^3$Third Affiliation\\
-%$^4$Fourth Affiliation
-%\emails
-%\{first, second\}@example.com,
-%third@other.example.com,
-%fourth@example.com
-%}
-%\fi
-
 \begin{document}
-
+	
 \maketitle
 
 \begin{abstract}
-Symbolic knowledge-extraction techniques are becoming of key importance for AI applications since they enable the explanation of opaque black-box predictors, enhancing trust and transparency.
-%
-Existing techniques use to require tuning of hyper-parameters. Manual tuning is too time-expensive for users, who conversely could benefit from automatic procedures to perform the task.
-%
-However, automatic procedures can compare different extraction algorithms only if an adequate metric -- such as a scoring function resuming all the interesting features of the extractors -- is provided.
-%
-The definition of an evaluation metric for symbolic knowledge extractors is currently missing in the literature.
-
-Accordingly, in this paper we introduce the \fire{} score metric to assess the quality of a symbolic knowledge-extraction procedure, taking into account both its predictive performance and the readability of the extracted knowledge.
-%
-A rigorous mathematical formulation is provided along with several practical examples to highlight its effectiveness to the end of being exploited inside automatic hyper-parameter tuning procedures.
-
+	Symbolic knowledge-extraction (SKE) techniques are becoming of key importance for AI applications since they enable the explanation of opaque black-box predictors, enhancing trust and transparency.
+	%
+	Among all the available SKE techniques, the best option for the case at hand should be selected.
+	%
+	However, an automatic comparison between different options can be performed only if an adequate metric -- such as a scoring function resuming all the interesting features of the extractors -- is provided. 
+	%
+	The definition of evaluation metrics for symbolic knowledge extractors is currently neglected in the literature.
+	%
+	Accordingly, in this paper we introduce the \fire{} score metric to assess the quality of a symbolic knowledge-extraction procedure, taking into account both its predictive performance and the readability of the extracted knowledge.
+	%
+	It is compared to another existing scoring metric and a rigorous mathematical formulation is provided along with several practical examples to highlight its effectiveness to the end of being exploited inside automatic hyper-parameter tuning procedures.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -195,7 +168,7 @@ When this option is not feasible or does not provide satisfying results, a diffe
 %
 This second strategy is the rationale behind symbolic knowledge-extraction (SKE) procedures.
 
-In the years, a plethora of SKE techniques has been proposed in the literature, especially to tackle supervised classification tasks.
+In the years, a plethora of SKE techniques has been proposed in the literature~\cite[for instance]{breiman1984classification,craven1994using,Thrun94,Andrews95rulex,craven1996extracting,BenitezCR97,SetionoL97,schmitz1999ann,SetionoL00,CastilloGP01,saito2002extracting,setiono2002extraction,Markowska-KaczmarT03,SetionoT04,barakat2005eclectic,huysmans2006iter,grex-icdm2008,NunezAC08,gridex-extraamas2021,gridrex-kr2022}.% and applied to several learning tasks \cite[to cite some examples]{bologna1997three,hayashi2000comparison,baesens2003using,hofmann2003rule,steiner2006using,franco2007early,sabbatini22LPFSKE}.
 %
 Given the amount of available analogous algorithms applicable to the same tasks, it may be complex to find the most suitable.
 %
@@ -204,15 +177,18 @@ Furthermore, some procedures need the fine tuning of a set of hyper-parameters, 
 Comparisons between different instances of the same extractor, or different extractors, are usually carried out by observing
 %
 \begin{inlinelist}
-	\item the predictive performance of the extractor, w.r.t.\ both the underlying BB predictions and the actual data set output variables; and
-	\item the readability of the output human-intelligible knowledge.
+	\item the predictive performance of the extractor, w.r.t.\ the underlying BB predictions and/or the actual data set output variables;
+	\item the readability of the output human-intelligible knowledge; and
+	\item the completeness of the knowledge in providing predictions~\cite{garcez2001symbolic,tran2013knowledge,skemetrics-aaai2023}.
 \end{inlinelist}
 
 The former can be easily assessed via the same metrics adopted to measure the predictive performance of the underlying BB (e.g., F$_1$ and accuracy scores for classification tasks and mean absolute/squared error and R$^2$ score for regression tasks).
 %
-Conversely, the latter may be measured through different indicators, however, to the best of our knowledge, a widely-acknowledged, well-founded, and sound definition has not been yet formulated.
+Readability may be measured through different indicators, however, to the best of our knowledge, a widely-acknowledged, well-founded, and sound definition has not been yet formulated.
 %
-Comparisons performed by users and automated algorithmic comparisons can surely benefit from a unified scoring function encompassing both concepts of predictive performance and readability associated with the knowledge provided by SKE techniques.
+Finally, knowledge completeness may be calculated as the percentage of queries that the knowledge is able to predict.
+
+Comparisons performed by users and automated algorithmic comparisons can surely benefit from a unified scoring function encompassing the concepts of predictive performance, readability and completeness associated with the knowledge provided by SKE techniques.
 %
 The definition of this kind of scoring is the fundamental brick for moving toward automated machine learning (AutoML) \cite{karmaker2021automl}.
 %
@@ -228,7 +204,7 @@ Section \ref{sec:motivation} discusses the motivations of the work as well as so
 \section{Motivations}\label{sec:motivation}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-SKE techniques have been applied in a wide variety of areas~\cite{steiner2006using,hayashi2000comparison,sabbatini22LPFSKE}.
+SKE techniques have been applied in a wide variety of areas~\cite[to cite some examples]{bologna1997three,hayashi2000comparison,baesens2003using,hofmann2003rule,steiner2006using,franco2007early,sabbatini22LPFSKE}.
 %%
 %The process of knowledge extraction from opaque ML models can follow different paradigms, i.e., SKE algorithms can be either decompositional or pedagogical~\cite{andrews1995survey}.
 %%
@@ -242,19 +218,33 @@ SKE techniques have been applied in a wide variety of areas~\cite{steiner2006usi
 %%
 %They only consider the output response corresponding to a given input instance or set of instances, with the aim of creating a mimicking, human-interpretable model able to approximate the underlying model predictions in the most adherent way.
 %
-Comparisons between different instances of the same extractor, or different extractors, in order to select the ``best extracted knowledge" are usually carried out by measuring
+Comparisons between different instances of the same extractor, or different extractors, in order to select the ``best extracted knowledge'' are usually carried out by observing the extractor's predictive performance, its completeness and the corresponding readability in terms of number of rules, by considering high values of these indices as more desirable.
 %
-\begin{inlinelist}
-	\item the predictive performance of the extractor, w.r.t.\ both the underlying BB predictions and the actual data set output variables; and
-	\item the readability of the extracted human-intelligible knowledge.
-\end{inlinelist}
+Such a comparison in the literature is always done manually and just looking at the three indices separately.
 %
-However, such a comparison in the literature is always done manually, just looking at the predictive performance of the extractor and the readability, separately.
+The comparison is therefore subjective: if knowledge $K_a$ is compared with another knowledge $K_b$ having same readability and completeness but a smaller degree of predictive accuracy, then it is trivial to consider $K_a$ as the best one.
 %
-To the best of our knowledge, not only an automatic way of evaluation is missing in the literature, but also the definition of a metric to synergically combine predictive performance and readability to measure the quality of the extracted knowledge as a unique indicator.
-% while the definition of a metric for automatic evaluation is still missing. 
+Conversely, if $K_a$ has same completeness and predictive accuracy than $K_b$, but with a smaller readability extent, then the best knowledge is $K_b$.
+%
+It is also trivial to select the best knowledge if $K_a$ has at the same time all the three indices with smaller values than knowledge $K_b$, that in this case would result as the best.
+%
+The main challenge is to decide which is the best output amongst all those provided by SKE techniques when there is not a knowledge minimising the three indices contemporaneously.
+%
+It is always possible to highlight more than one optimum output, i.e., one for each evaluating criterion, but comparisons between small predictive performance increases versus small human-readability losses are subject to the human judgement and thus the identification of a single, optimum knowledge may depend on a subjective, biased selection.
 
-The predictive performance of the extracted knowledge may be assessed w.r.t.\ 2 different dimensions by using the same scoring function adopted for the underlying BB.
+We believe that the formulation of a standardised, compact scoring function encompassing multiple indices may lead to a more impartial knowledge quality assessment than the human comparison performed separately for each available evaluating criterion.
+%
+On the other hand, from an auto-ML perspective, only by enclosing multiple indices within a unique metric it is possible to design and implement hyper-parameter tuning algorithms for SKE techniques without neglecting relevant evaluating criteria.
+
+To the best of our knowledge, not only an automatic way of evaluation is missing in the literature, but it is also missing a formal definition of metrics synergically combining predictive performance and readability to measure the quality of the extracted knowledge as a unique indicator, with the only exception proposed by~\citet{skemetrics-aaai2023}, where a scoring function involving predictive performance, readability and also completeness is presented.
+%
+The authors propose a multiplicative metric having three terms related to the indices.
+%
+More in detail, indices are expressed in terms of \emph{losses} (i.e., predictive loss, readability loss and coverage loss) that should be as small as possible for a good quality knowledge.
+%
+As a result, also the overall scoring function multiplying the three losses results small for a good quality knowledge and therefore it is possible to assign scores to the extractors' outputs automatically and also to compare them within algorithmic parameter tuning routines.
+
+The predictive performance of the extracted knowledge may be assessed w.r.t.\ two different dimensions by using the same scoring function adopted for the underlying BB.
 %
 These dimensions are:
 %
@@ -263,89 +253,103 @@ These dimensions are:
 	\item the \emph{predictive performance} w.r.t.\ the data set output features.
 \end{inlinelist}
 
-The readability from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth 5 is considered more readable than an algorithm extracting a decision tree with depth 10) \cite{czarnowski2016}.
-% 
-It is evident that an evaluation made only at this level can be considered rather superficial since a wider set of indicators should be taken into account for a fair evaluation \cite{sabbatini2022-metrics}.
+Straightforward measurements of coverage and coverage loss are the rates of provided and missed predictions, respectively, w.r.t.\ the total amount of instances for which the knowledge has been queried.
 %
-In particular, a readability metric should at least consider:
+Coverage is trivially equal to 1.0 for exhaustive knowledge-extraction algorithms, as for instance those based on decision trees.
+
+The readability evaluation from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth = 5 is considered more readable than an algorithm extracting a decision tree with depth = 10)~\cite{czarnowski2016}.
+% 
+Evaluation exclusively taking into account this level can be considered rather superficial since a wider set of indicators should be taken into account for a complete evaluation \cite{sabbatini2022-metrics}.
+%
+In particular, a readability metric may also consider:
 %
 \begin{inlinelist}
 	\item the shape of the extracted knowledge, e.g., list or trees of rules, decision tables, etc.; and
 	\item the readability of single atoms composing the knowledge, e.g., how individual rules or tree nodes and leaves are constructed.
 \end{inlinelist}
 %
-However, both these items may require further investigations to discern between more and less readable knowledge representations and how to formalize them.
+However, both these items require further investigations to be formalised and numerically assessed.
 
-%-----------------------------------------------------------%
-\subsection{On the knowledge readability: considerations and examples}\label{ssec:consideration}
-%-----------------------------------------------------------%
-As mentioned above, knowledge extracted from a BB via SKE comes in the form of lists, decision trees, or decision tables \cite{guidotti2018survey,huysmans2011empirical}. 
+The scoring function presented here considers only the knowledge size as readability measure, similarly to comparisons performed by humans and reported in the literature.
 %
-In the following, some considerations and examples of different levels of readability of these outputs are discussed, to make the reader understand all the features that a readability evaluation metric should take into account when formulated.
+The same strategy has been applied for the other metric described by~\citet{skemetrics-aaai2023}.
 
-It is worth noting that according to~\citeauthor{sabbatini2022-metrics}~(\citeyear{sabbatini2022-metrics}) rule lists and trees are equivalent, since starting from a tree it is possible to build a list of rules by converting each path from the tree root to a different leaf into a distinct rule.
+\fire{} differs from the existing metric for two reasons.
 %
-Analogously, decision tables usually represent a rule per row (or column), so they can be easily translated into a list of rules. 
+First, \fire{} neglects the contribution of the coverage index in calculating the overall score.
 %
-Hence, all the different output formats in terms of shape are traceable to each other to be compared fairly.
+Thus, it is based only on the notions of predictive and readability losses.
+%
+Second, \fire{} allows users to provide an input parameter used to weight the contribution of the predictive loss w.r.t.\ the readability loss.
+%
+This is important, since it enhances the flexibility of the scoring function in capturing the needs of users, for instance preferring output knowledge with the smallest predictive error rather than the most readable knowledge having larger errors.
 
-There exist remarkable differences, however, between \emph{ordered} and \emph{unordered} lists, since in the first case rules are evaluated from the top to the bottom and, for this reason, bottom rules may be simplified by assuming as trivially false the conditions represented in the top rules.
+%%-----------------------------------------------------------%
+%\subsection{On the knowledge readability: considerations and examples}\label{ssec:consideration}
+%%-----------------------------------------------------------%
+%As mentioned above, knowledge extracted from a BB via SKE comes in the form of lists, decision trees, or decision tables \cite{guidotti2018survey,huysmans2011empirical}. 
+%%
+%In the following, some considerations and examples of different levels of readability of these outputs are discussed, to make the reader understand all the features that a readability evaluation metric should take into account when formulated.
 %
-This leads to more concise knowledge representations, but at the cost of human readability, since to interpret the output of the bottommost rule it is necessary to acknowledge as false all the others.
+%It is worth noting that according to~\citeauthor{sabbatini2022-metrics}~(\citeyear{sabbatini2022-metrics}) rule lists and trees are equivalent, since starting from a tree it is possible to build a list of rules by converting each path from the tree root to a different leaf into a distinct rule.
+%%
+%Analogously, decision tables usually represent a rule per row (or column), so they can be easily translated into a list of rules. 
+%%
+%Hence, all the different output formats in terms of shape are traceable to each other to be compared fairly.
 %
-As a consequence, it is evident how the mere amount of output rules is a rough but reliable indicator of readability, but the readability of single rules presents tricky challenges that should be carefully investigated.
-
-Furthermore, rules (that come usually in form of logic rules) are usually implications having a set of preconditions (e.g., describing an input feature space subregion) and a postcondition (i.e., the output associated with inputs belonging to the subregion).
+%There exist remarkable differences, however, between \emph{ordered} and \emph{unordered} lists, since in the first case rules are evaluated from the top to the bottom and, for this reason, bottom rules may be simplified by assuming as trivially false the conditions represented in the top rules.
+%%
+%This leads to more concise knowledge representations, but at the cost of human readability, since to interpret the output of the bottommost rule it is necessary to acknowledge as false all the others.
+%%
+%As a consequence, it is evident how the mere amount of output rules is a rough but reliable indicator of readability, but the readability of single rules presents tricky challenges that should be carefully investigated.
 %
-Preconditions and postconditions present different degrees of intrinsic readability.
+%Furthermore, rules (that come usually in form of logic rules) are usually implications having a set of preconditions (e.g., describing an input feature space subregion) and a postcondition (i.e., the output associated with inputs belonging to the subregion).
+%%
+%Preconditions and postconditions present different degrees of intrinsic readability.
+%%
+%In particular, examples of preconditions are {con\-junc\-tions}/disjunctions of \emph{if-then}, \emph{M-of-N}, oblique or fuzzy rules, in positive or negative form.
+%%
+%Also in this case the more compact representations are denoted by a smaller human readability and it is a difficult task to assign a numerical readability score to them.
+%%
+%For instance, a trivial count of conditions and/or constants and/or variables contained in the rules is not suitable to assess readability, and this is easily demonstrated by considering the following example.
+%%
+%A precondition expressed as
+%%
+%\begin{equation*}
+%	if (X \geq 0.5) \wedge (X \leq 0.75)
+%\end{equation*}
+%%
+%contains one variable, two conditions, and two constants.
+%%
+%An equivalent fuzzy rule in the form 
+%%
+%\begin{equation*}
+%	if~X~is~medium
+%\end{equation*}
+%%
+%has one variable as well, but only one condition and one constant.
+%%
+%However, it presents the same degree of readability for humans, that need to know the semantics of $medium$.
+%%
+%Finally, the same concept may be modelled as 
+%%
+%\begin{equation*}
+%	if~X \in [0.5, 0.75],
+%\end{equation*}
+%%
+%differing from the first representation in the number of conditions (1 vs. 2).
+%%
+%But, actually, the readability extent is absolutely equivalent.
 %
-In particular, examples of preconditions are {con\-junc\-tions}/disjunctions of \emph{if-then}, \emph{M-of-N}, oblique or fuzzy rules, in positive or negative form.
+%On the other hand, as a final consideration, postconditions may be constant values or some kind of function involving input features.
+%%
+%In the latter case, readability is obviously reduced.
 %
-Also in this case the more compact representations are denoted by a smaller human readability and it is a difficult task to assign a numerical readability score to them.
-%
-For instance, a trivial count of conditions and/or constants and/or variables contained in the rules is not suitable to assess readability, and this is easily demonstrated by considering the following example.
-%
-A precondition expressed as
-%
-\begin{equation*}
-	if (X \geq 0.5) \wedge (X \leq 0.75)
-\end{equation*}
-%
-contains one variable, two conditions, and two constants.
-%
-An equivalent fuzzy rule in the form 
-%
-\begin{equation*}
-	if~X~is~medium
-\end{equation*}
-%
-has one variable as well, but only one condition and one constant.
-%
-However, it presents the same degree of readability for humans, that need to know the semantics of $medium$.
-%
-Finally, the same concept may be modelled as 
-%
-\begin{equation*}
-	if~X \in [0.5, 0.75],
-\end{equation*}
-%
-differing from the first representation in the number of conditions (1 vs. 2).
-%
-But, actually, the readability extent is absolutely equivalent.
-
-On the other hand, as a final consideration, postconditions may be constant values or some kind of function involving input features.
-%
-In the latter case, readability is obviously reduced.
-
-These basic examples show how quantitatively measuring the readability of ``extracted knowledge" is not so trivial, and also leads to non-quantitative and subjective parameters to be taken into consideration. For this reason, in this work, we will limit the metric to take into account only the number of rules as an index of human interpretability---which is, in any case, what is reflected in the literature today.
+%These basic examples show how quantitatively measuring the readability of ``extracted knowledge" is not so trivial, and also leads to non-quantitative and subjective parameters to be taken into consideration. For this reason, in this work, we will limit the metric to take into account only the number of rules as an index of human interpretability---which is, in any case, what is reflected in the literature today.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{The \fire{} score}\label{sec:fire}
 %%%%%%%%%%%%%%%%%%%%%%%
-
-Given all the observations discussed above, the scoring function presented in the following only relies on the amount of extracted rules as a readability indicator, since it appears to be the most straightforward and unambiguous.
-%
-So the unique metric formulated for measuring the quality of the knowledge extracted via SKE will take into account both the predictive performance and the readability intended as human interpretability.
 
 \captionsetup[subfigure]{width=.4\linewidth}
 \begin{figure}[tb]\centering
@@ -365,7 +369,9 @@ So the unique metric formulated for measuring the quality of the knowledge extra
 	\caption{Graphs of different \psifire{} scoring functions, having $\psi \in \{1, 3, 5, 10\}$.}\label{fig:psi}
 \end{figure}
 
-The \fire{} score is a multivariate function defined as follows:
+The \fire{} scoring metric formulated for measuring the quality of the knowledge extracted via SKE considers both the knowledge's predictive performance and its readability, intended as human interpretability w.r.t.\ the amount of extracted rules.
+%
+The \fire{} score is thus a multivariate function defined as follows:
 %
 \begin{align}
 	&\fire: \left( \mathbb{R}_{>0} \times \mathbb{R}_{\geq 0} \times \mathbb{R}_{\geq1} \right) \mapsto \mathbb{R}_{\geq 0},\\
@@ -449,7 +455,7 @@ The \fire{} score has been formulated to assign low scores to desirable extracto
 It assumes that a good extractor should exhibit a low predictive loss and a low readability loss.
 %
 For this reason, it is a multiplicative score between the two parameters.
-%
+
 The ceiling function appearing as the second factor of the score has the purpose to give a step-function shape to the \fire{} score.
 %
 The exact shape of the steps is regulated through the $\psi$ parameter, acting as a user-defined sensitivity threshold and thus appearing as the denominator in the second term of the score formulation.
@@ -526,7 +532,7 @@ The derivative is 0 for $p=0$, indeed in this case the \psifire{} score is alway
 
 In this section considerations about the practical application of the \fire{} score are reported, in order to highlight its effectiveness but also to further explain the score meaning and the importance of the $\psi$ parameter.
 %
-Accordingly, in \Cref{ssec:comp} several theoretical examples of the \fire{} score applications are explained, together with corresponding observations, whereas in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
+Accordingly, in \Cref{ssec:comp} several theoretical examples of the \fire{} score applications are explained, together with corresponding observations, whereas in \Cref{ssec:balance} the equilibrium between the predictive and readability loss parameters is analytically studied. Finally, in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
 
 \subsection{Comparing algorithms with \fire{}}\label{ssec:comp}
 
@@ -583,6 +589,23 @@ Finally, we exploit the same figure to stress the fact that the isoline presents
 This behaviour reflects the actual quality of the knowledge provided by SKE techniques.
 %
 Indeed, when the number of rules or the predictive error are very high, the evaluated knowledge has low quality and it is no more a relevant task to have a fine-grained measure of \emph{how} a loss should be compensated by the other.
+
+\subsection{Predictive and readability loss equilibrium}\label{ssec:balance}
+
+Given the ability of the \fire{} score in providing the notion of \emph{knowledge equivalence} according more than one index, SKE techniques' users have the possibility to perform analytical investigations on the knowledge quality to understand
+%
+\begin{inlinelist}
+	\item the predictive loss decrease (resp.\ increase) exactly annihilating a readability loss increase (resp.\ decrease); and
+	\item the predictive loss decrease (resp.\ increase) having the same effect of a readability loss decrease (resp.\ increase).
+\end{inlinelist}
+%
+In the first case the goal is to find the equilibrium between predictive loss and readability loss when both these indices vary in opposite directions (one increasing, leading to a worse \fire{} score and the other decreasing, leading to a better score).
+%
+This allows users to spot a set of equivalent knowledge and therefore to analytically observe the corresponding \fire{} isolines, understanding how to set the $\psi$ parameter.
+%
+In the second case the focus is on studying the effects of individual decreases or increases in the losses to find equivalent pairs.
+%
+Thanks to this, users highlight the effect of the fidelity/readability $\psi$ trade-off and thus they may discover that to have better knowledge quality it is sufficient a small enhancement in one loss rather than big efforts on the other.
 
 \subsection{Tuning the $\psi$ parameter}\label{ssec:psi}
 
@@ -712,7 +735,7 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 	\label{tab:experiments}
 \end{table}
 
-The effectiveness of the \fire{} score to evaluate and compare the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.\footnote{Anonymised code available at \url{https://anonymous.4open.science/r/FiRe/demo/DemoXXXX-8XXXX-7.ipynb}}
+The effectiveness of the \fire{} score to evaluate and compare the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.\footnote{Code available at \url{https://github.com/psykei/psyke-python/blob/demo/AAAI23/FiRe/demo/DemoFire.ipynb}}
 %
 In particular, the \psyke{} framework~\cite{psyke-woa2021} has been used to train a BB predictor and a set of extractors on the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.%\cite{psyke-woa2021,psyke-ia2022}
 %
@@ -812,14 +835,17 @@ Our future works will focus on enhancing the \fire{} score concerning its readab
 %
 Furthermore, we plan to exploit this score to give robustness to the \pedro{} procedure \cite{gridrex-kr2022}, a tool to automatically find the best parameter values for \gridex{} and \gridrex{} \cite{gridrex-kr2022}.
 
+\section*{Acknowledgments}
 
-%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Ethics statement}
-%%%%%%%%%%%%%%%%%%%%%%%
-The authors confirm that proper consideration has been given to any ethics issues. The data sets considered for the experiments do not contain any sensitive features and were treated in compliance with all existing data laws. Being related to the explainability of decisions made by AI systems, the work can have a substantial impact on ethics, ensuring greater transparency and traceability of the decisions made, and guaranteeing equitable and fair approaches. Therefore it could contribute to building more trustable and therefore more ethical systems.
+This work has been partially supported by the EU ICT-48 2020 project TAILOR (No. 952215).
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Ethics statement}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%The authors confirm that proper consideration has been given to any ethics issues. The data sets considered for the experiments do not contain any sensitive features and were treated in compliance with all existing data laws. Being related to the explainability of decisions made by AI systems, the work can have a substantial impact on ethics, ensuring greater transparency and traceability of the decisions made, and guaranteeing equitable and fair approaches. Therefore it could contribute to building more trustable and therefore more ethical systems.
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
-\bibliographystyle{named}
+\bibliographystyle{kr}
 \bibliography{fire-ijcai-23}
 
 \end{document}
