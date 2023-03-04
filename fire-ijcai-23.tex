@@ -598,14 +598,75 @@ Given the ability of the \fire{} score in providing the notion of \emph{knowledg
 	\item the predictive loss decrease (resp.\ increase) exactly annihilating a readability loss increase (resp.\ decrease); and
 	\item the predictive loss decrease (resp.\ increase) having the same effect of a readability loss decrease (resp.\ increase).
 \end{inlinelist}
-%
+
 In the first case the goal is to find the equilibrium between predictive loss and readability loss when both these indices vary in opposite directions (one increasing, leading to a worse \fire{} score and the other decreasing, leading to a better score).
 %
 This allows users to spot a set of equivalent knowledge and therefore to analytically observe the corresponding \fire{} isolines, understanding how to set the $\psi$ parameter.
-%
+
 In the second case the focus is on studying the effects of individual decreases or increases in the losses to find equivalent pairs.
 %
 Thanks to this, users highlight the effect of the fidelity/readability $\psi$ trade-off and thus they may discover that to have better knowledge quality it is sufficient a small enhancement in one loss rather than big efforts on the other.
+
+The relationship to be satisfied in order to find the equilibrium between predictive and readability losses may be found by multiplying the losses by two unknown constants, $\alpha$ and $\beta$:
+%
+\begin{equation}\label{eq:equi1}
+	\psi\textrm{-}\fire(p, r) = \psi\textrm{-}\fire(\alpha p, \beta r),
+\end{equation}
+%
+that is equivalent to:
+%
+\begin{equation}\label{eq:equi2}
+	p \left \lceil{\frac{r}{\psi}}\right \rceil r^{0.05} = \alpha p \left \lceil{\frac{\beta r}{\psi}}\right \rceil (\beta r)^{0.05}.
+\end{equation}
+%
+By resolving w.r.t.\ $\alpha$ we obtain:
+%
+\begin{equation}\label{eq:alpha}
+	\alpha = \frac{\left \lceil{\frac{r}{\psi}}\right \rceil}{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}.
+\end{equation}
+
+%\begin{equation}\label{eq:equi}
+%	\begin{split}
+%		\psi\textrm{-}\fire(p, r) &= \psi\textrm{-}\fire(\alpha p, \beta r) \\
+%		p \left \lceil{\frac{r}{\psi}}\right \rceil r^{0.05} &= \alpha p \left \lceil{\frac{\beta r}{\psi}}\right \rceil (\beta r)^{0.05} \\
+%		\left \lceil{\frac{r}{\psi}}\right \rceil &= \alpha \left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05} \\
+%		\alpha &= \frac{\left \lceil{\frac{r}{\psi}}\right \rceil}{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}.
+%	\end{split}
+%\end{equation}
+
+These equations demonstrate that a knowledge with predictive loss $p$ and readability loss $r$ has the same quality of another knowledge having predictive loss $\alpha p$ and readability loss $\beta r$ if and only if \Cref{eq:alpha} is satisfied.
+%
+Furthermore, \Cref{eq:alpha} highlights that the $p$ parameter is not relevant in finding a pair of compensating $\alpha$ and $\beta$ multiplicative constant for the losses involved in the \fire{} score calculation, differently to $r$ and $\psi$ that play a role in the pair determination.
+
+When altering the predictive and readability losses in the \fire{} score, given the monotonicity properties of the scoring function, intuitively we may have predictive loss increases compensated by readability loss decreases or, vice versa, readability loss increases balanced by predictive loss decreases.
+%
+\Cref{eq:alpha} confirms this intuition.
+%
+Indeed, readability loss increases are represented with $\beta > 1$ values.
+%
+This implies that $\beta^{0.05} > 1$ and that $\left \lceil{\frac{r}{\psi}}\right \rceil \leq \left \lceil{\frac{\beta r}{\psi}}\right \rceil$.
+%
+Thus, if $\beta > 1$ then $\alpha < 1$.
+%
+Conversely, if $\beta < 1$ then $\beta^{0.05} < 1$ and $\left \lceil{\frac{r}{\psi}}\right \rceil \geq \left \lceil{\frac{\beta r}{\psi}}\right \rceil$.
+%
+Therefore, if $\beta < 1$ then $\alpha > 1$.
+%
+Obviously, if $\beta = 1$ then $\alpha = 1$.
+
+In order to find equivalent pairs of increases/decreases in the predictive and readability losses it is sufficient to modify \Cref{eq:equi1} as follows:
+%
+\begin{equation}\label{eq:equi3}
+	\psi\textrm{-}\fire(\alpha p, r) = \psi\textrm{-}\fire(p, \beta r).
+\end{equation}
+%
+Developing the equation similarly to the equilibrium case we find:
+%
+\begin{equation}\label{eq:alpha}
+	\alpha = \frac{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}{\left \lceil{\frac{r}{\psi}}\right \rceil}.
+\end{equation}
+%
+By applying the same considerations as before, we find that in this case $\alpha$ and $\beta$ are both $=1$, $<1$, or $>1$.
 
 \subsection{Tuning the $\psi$ parameter}\label{ssec:psi}
 
