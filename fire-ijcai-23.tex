@@ -464,7 +464,7 @@ By setting $\psi=n$, users impose these steps to have a length equal to $n$.
 %
 Since a flat step would assign the same \psifire{} score to extractors having the same predictive loss and a different but similar readability loss (e.g., $r$ = 1 and 2, respectively, and $\psi=10$), a third factor is queued to the score definition to discern amongst the extractors lying on the same step which one has to be considered the best.
 %
-We found that an exponent equal to 0.05 allows the scoring function to preserve all its peculiarities, at the same time adding the desired increasing trend to the step function.
+We found that an exponent equal to 0.05 allows the scoring function to preserve all its peculiarities, at the same time adding the desired increasing trend to the step function (monotonicity).
 %
 In this way the \fire{} score keeps the step-function shape but becomes an increasing monotonic function (for any $p>0$, since $\psi\textrm{-}\fire{}(0, r)=0, \forall r, \forall \psi$).
 %
@@ -582,30 +582,30 @@ By observing the red isoline it is noticeable how a doubling of the readability 
 %
 The curve can be also read in the opposite sense, e.g., a doubling of the predictive loss is accepted only when (approximately) compensated by a readability loss halving.
 %
-With this reading key it is possible to exploit the \fire{} isolines to analytically study better and worse extraction procedures w.r.t.\ a fixed one, by taking into consideration both increases and decreases of the predictive loss and/or of the readability loss.
+With this reading key, it is possible to exploit the \fire{} isolines to analytically study better and worse extraction procedures w.r.t.\ a fixed one, by taking into consideration both increases and decreases of the predictive loss and/or of the readability loss.
 
 Finally, we exploit the same figure to stress the fact that the isoline presents an asymptotic trend when the $p$ and $r$ parameters tend to infinity.
 %
 This behaviour reflects the actual quality of the knowledge provided by SKE techniques.
 %
-Indeed, when the number of rules or the predictive error are very high, the evaluated knowledge has low quality and it is no more a relevant task to have a fine-grained measure of \emph{how} a loss should be compensated by the other.
+Indeed, when the number of rules or the predictive error is very high, the evaluated knowledge has low quality and it is no more a relevant task to have a fine-grained measure of \emph{how} a loss should be compensated by the other.
 
 \subsection{Predictive and readability loss equilibrium}\label{ssec:balance}
 
-Given the ability of the \fire{} score in providing the notion of \emph{knowledge equivalence} according more than one index, SKE techniques' users have the possibility to perform analytical investigations on the knowledge quality to understand
+Given the ability of the \fire{} score in providing the notion of \emph{knowledge equivalence} according to more than one index, SKE techniques' users have the possibility to perform analytical investigations on the knowledge quality to understand
 %
 \begin{inlinelist}
 	\item the predictive loss decrease (resp.\ increase) exactly annihilating a readability loss increase (resp.\ decrease); and
-	\item the predictive loss decrease (resp.\ increase) having the same effect of a readability loss decrease (resp.\ increase).
+	\item the predictive loss decrease (resp.\ increase) having the same effect as a readability loss decrease (resp.\ increase).
 \end{inlinelist}
 
-In the first case the goal is to find the equilibrium between predictive loss and readability loss when both these indices vary in opposite directions (one increasing, leading to a worse \fire{} score and the other decreasing, leading to a better score).
+In the first case, the goal is to find the equilibrium between predictive loss and readability loss when both these indices vary in opposite directions (one increasing, leading to a worse \fire{} score and the other decreasing, leading to a better score).
 %
 This allows users to spot a set of equivalent knowledge and therefore to analytically observe the corresponding \fire{} isolines, understanding how to set the $\psi$ parameter.
 
-In the second case the focus is on studying the effects of individual decreases or increases in the losses to find equivalent pairs.
+In the second case, the focus is on studying the effects of individual decreases or increases in the losses to find equivalent pairs.
 %
-Thanks to this, users highlight the effect of the fidelity/readability $\psi$ trade-off and thus they may discover that to have better knowledge quality it is sufficient a small enhancement in one loss rather than big efforts on the other.
+Thanks to this, users highlight the effect of the fidelity/readability $\psi$ trade-off and thus they may discover that to have better knowledge quality it is sufficient for a small enhancement in one loss rather than big efforts on the other.
 
 The relationship to be satisfied in order to find the equilibrium between predictive and readability losses may be found by multiplying the losses by two unknown constants, $\alpha$ and $\beta$:
 %
@@ -634,7 +634,7 @@ By resolving w.r.t.\ $\alpha$ we obtain:
 %	\end{split}
 %\end{equation}
 
-These equations demonstrate that a knowledge with predictive loss $p$ and readability loss $r$ has the same quality of another knowledge having predictive loss $\alpha p$ and readability loss $\beta r$ if and only if \Cref{eq:alpha} is satisfied.
+These equations demonstrate that knowledge with a predictive loss $p$ and readability loss $r$ has the same quality as another knowledge having predictive loss $\alpha p$ and readability loss $\beta r$ if and only if \Cref{eq:alpha} is satisfied.
 %
 Furthermore, \Cref{eq:alpha} highlights that the $p$ parameter is not relevant in finding a pair of compensating $\alpha$ and $\beta$ multiplicative constant for the losses involved in the \fire{} score calculation, differently to $r$ and $\psi$ that play a role in the pair determination.
 
@@ -660,7 +660,7 @@ In order to find equivalent pairs of increases/decreases in the predictive and r
 	\psi\textrm{-}\fire(\alpha p, r) = \psi\textrm{-}\fire(p, \beta r).
 \end{equation}
 %
-Developing the equation similarly to the equilibrium case we find:
+Developing the equation similar to the equilibrium case we find:
 %
 \begin{equation}\label{eq:alpha}
 	\alpha = \frac{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}{\left \lceil{\frac{r}{\psi}}\right \rceil}.
