@@ -656,7 +656,23 @@ Therefore, if $\beta < 1$ then $\alpha > 1$.
 %
 Obviously, if $\beta = 1$ then $\alpha = 1$.
 
-In order to find equivalent pairs of increases/decreases in the predictive and readability losses it is sufficient to modify \Cref{eq:equi1} as follows:
+All these relationships may be traced in \Cref{fig:equi}.
+%
+In the figure the relationship between the $\alpha$ and $\beta$ values are shown for different values of the threshold-parameter $\psi$ and the readability loss $r$, given that $\alpha$ depends also on them other than $\beta$.
+%
+It is possible to notice that with a fixed $\beta$ and for growing values of $\psi$ the effects of $\beta$ are more and more neglected, whereas for growing values of $r$ they are more pronounced.
+%
+As a consequence, when $\beta > 1$ increasing $\psi$ or decreasing $r$ implies increasing $\alpha$.
+%
+Conversely, when $\beta < 1$ increasing $\psi$ as well as decreasing $r$ induces decreasing $\alpha$ values.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.02\linewidth]{figures/equi.pdf}
+	\caption{Equilibrium between $\alpha$ and $\beta$ for different values of the readability loss $r$ and the $\psi$ parameter.}\label{fig:equi}
+\end{figure}
+
+To conclude the analysis of the entanglement between the predictive and readability losses, we point out that in order to find equivalent pairs of increases/decreases in the predictive and readability losses it is sufficient to modify \Cref{eq:equi1} as follows:
 %
 \begin{equation}\label{eq:equi3}
 	\psi\textrm{-}\fire(\alpha p, r) = \psi\textrm{-}\fire(p, \beta r).
@@ -664,7 +680,7 @@ In order to find equivalent pairs of increases/decreases in the predictive and r
 %
 Developing the equation similar to the equilibrium case we find:
 %
-\begin{equation}\label{eq:alpha}
+\begin{equation}\label{eq:alpha2}
 	\alpha = \frac{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}{\left \lceil{\frac{r}{\psi}}\right \rceil}.
 \end{equation}
 %
