@@ -235,6 +235,8 @@ It is always possible to highlight more than one optimum output, i.e., one for e
 We believe that the formulation of a standardised, compact scoring function encompassing multiple indices may lead to a more impartial knowledge quality assessment than the human comparison performed separately for each available evaluating criterion.
 %
 On the other hand, from an auto-ML perspective, only by enclosing multiple indices within a unique metric it is possible to design and implement hyper-parameter tuning algorithms for SKE techniques without neglecting relevant evaluating criteria.
+%
+For instance, a metric for knowledge quality evaluation may be a precious tool for giving robustness to the \pedro{} procedure~\cite{gridrex-kr2022}, a tool to automatically find the best parameter values for the \gridex{} and \gridrex{}~\cite{gridex-extraamas2021,gridrex-kr2022} knowledge-extraction algorithms.
 
 To the best of our knowledge, not only an automatic way of evaluation is missing in the literature, but it is also missing a formal definition of metrics synergically combining predictive performance and readability to measure the quality of the extracted knowledge as a unique indicator, with the only exception proposed by~\citet{skemetrics-aaai2023}, where a scoring function involving predictive performance, readability and also completeness is presented.
 %
@@ -456,7 +458,7 @@ The \fire{} score has been formulated to assign low scores to desirable extracto
 %
 It assumes that a good extractor should exhibit a low predictive loss and a low readability loss.
 %
-For this reason, it is a multiplicative score between the two parameters.
+For this reason, it is a multiplicative score between the two parameters and, therefore, it is sufficient that only one amongst the predictive or the readability loss is high to bring the \fire{} score towards high values corresponding to low-quality knowledge.
 
 The ceiling function appearing as the second factor of the score has the purpose to give a step-function shape to the \fire{} score.
 %
@@ -742,16 +744,6 @@ In particular, the single-ruled knowledge is considered better than the others l
 %
 On the other hand, it is worse if considering $\psi=6$.
 
-The dual situation can be encountered with knowledge having 5 rules and MAE = 0.8 (red cross).
-%
-In this case the knowledge quality is considered better when evaluated through the 6-\fire{} score and worse with the 2-\fire{} score.
-
-Given all these remarks, we suggest selecting the most adequate value of the $\psi$ parameter for the task after observing the corresponding isolines.
-
-%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experiments and discussion}\label{sec:experiments}
-%%%%%%%%%%%%%%%%%%%%%%%
-
 \captionsetup[subfigure]{width=.25\linewidth}
 \begin{figure*}[tb]\centering
 	\subfloat[9-NN.]{
@@ -815,6 +807,16 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 	\caption{Quality assessments for the knowledge extracted by different SKE algorithms from a 9-NN for the Iris data set.}
 	\label{tab:experiments}
 \end{table*}
+
+The dual situation can be encountered with knowledge having 5 rules and MAE = 0.8 (red cross).
+%
+In this case the knowledge quality is considered better when evaluated through the 6-\fire{} score and worse with the 2-\fire{} score.
+
+Given all these remarks, we suggest selecting the most adequate value of the $\psi$ parameter for the task after observing the corresponding isolines.
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiments and discussion}\label{sec:experiments}
+%%%%%%%%%%%%%%%%%%%%%%%
 
 The effectiveness of the \fire{} score in evaluating and comparing the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.%\footnote{Code available at \url{https://github.com/psykei/psyke-python/blob/demo/AAAI23/FiRe/demo/DemoFire.ipynb}}
 %
@@ -939,8 +941,6 @@ The \fire{} score may also be applied together with automatic parameter-tuning p
 We show here the properties of the scoring function and a rigorous mathematical formulation is also provided.
 
 Our future works will focus on enhancing the \fire{} score concerning its readability loss parameter, with a more expressive formulation than the mere amount of rules provided as output by an extractor.
-%
-Furthermore, we plan to exploit this score to give robustness to the \pedro{} procedure \cite{gridrex-kr2022}, a tool to automatically find the best parameter values for \gridex{} and \gridrex{} \cite{gridrex-kr2022}.
 
 \section*{Acknowledgments}
 
