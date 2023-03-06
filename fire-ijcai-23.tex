@@ -255,6 +255,8 @@ These dimensions are:
 
 Straightforward measurements of coverage and coverage loss are the rates of provided and missed predictions, respectively, w.r.t.\ the total amount of instances for which the knowledge has been queried.
 %
+Alternatively, it is possible to calculate the percentage of covered and uncovered regions of the input feature space, respectively.
+%
 Coverage is trivially equal to 1.0 for exhaustive knowledge-extraction algorithms, as for instance those based on decision trees.
 
 The readability evaluation from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth = 5 is considered more readable than an algorithm extracting a decision tree with depth = 10)~\cite{czarnowski2016}.
@@ -740,73 +742,75 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 	\includegraphics[width=\fourinarow]{figures/classif/knn.pdf}\label{fig:knn}
 	}
 	\subfloat[\cart{}.]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-cart.pdf}\label{fig:cart}
+		\includegraphics[width=\fourinarow]{figures/classif/cart.pdf}\label{fig:cart}
 	}
 	\subfloat[\iter{}.]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-iter.pdf}\label{fig:iter}
+		\includegraphics[width=\fourinarow]{figures/classif/iter.pdf}\label{fig:iter}
 	}
-	\subfloat[\creepy{} (4 features).]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-creepy2.pdf}\label{fig:creepy2}
+	\subfloat[\creepy{} (2 features).]{
+		\includegraphics[width=\fourinarow]{figures/classif/creepy2.pdf}\label{fig:creepy2}
 	}
 	\\
-	\subfloat[\creepy{} (2 features).]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-creepy1.pdf}\label{fig:creepy1}
+	\subfloat[\creepy{} (1 feature).]{
+		\includegraphics[width=\fourinarow]{figures/classif/creepy1.pdf}\label{fig:creepy1}
 	}
 	\subfloat[\gridex{} (3 rules).]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-gridex3.pdf}\label{fig:gridex3}
+		\includegraphics[width=\fourinarow]{figures/classif/gridex3.pdf}\label{fig:gridex3}
 	}
 	\subfloat[\gridex{} (4 rules).]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-gridex4.pdf}\label{fig:gridex4}
+		\includegraphics[width=\fourinarow]{figures/classif/gridex4.pdf}\label{fig:gridex4}
 	}
-	\subfloat[\gridex{} (8 rules).]{
-		\includegraphics[width=\fourinarow]{figures/classif/knn-gridex8.pdf}\label{fig:gridex8}
+	\subfloat[\gridex{} (6 rules).]{
+		\includegraphics[width=\fourinarow]{figures/classif/gridex6.pdf}\label{fig:gridex6}
 	}
 	\\
-	\subfloat[1-\fire{}.]{
-		\includegraphics[width=\threeinarow]{figures/exp1.pdf}\label{fig:phi1}
+	\subfloat[$Q_s$ quality score.]{
+		\includegraphics[width=\fourinarow]{figures/qs.pdf}\label{fig:qs}
 	}
-	\subfloat[2-\fire{}.]{
-		\includegraphics[width=\threeinarow]{figures/exp2.pdf}\label{fig:phi2}
+	\subfloat[$1\textrm{-}\fire{}$.]{
+		\includegraphics[width=\fourinarow]{figures/exp1.pdf}\label{fig:phi1}
 	}
-	\subfloat[3-fire{}.]{
-		\includegraphics[width=\threeinarow]{figures/exp3.pdf}\label{fig:phi3}
+	\subfloat[$2\textrm{-}\fire{}$.]{
+		\includegraphics[width=\fourinarow]{figures/exp2.pdf}\label{fig:phi2}
 	}
-	\caption{Decision boundaries for the Iris data set obtained with different extractors applied to a 9-NN and corresponding 1-\fire{}, 2-\fire{} and 3-\fire{} score isolines.}\label{fig:experiments}
+	\subfloat[$3\textrm{-}\fire{}$.]{
+		\includegraphics[width=\fourinarow]{figures/exp3.pdf}\label{fig:phi3}
+	}
+	\caption{Decision boundaries for the Iris data set obtained with different extractors applied to a 9-NN, corresponding quality score $Q_s$ and 1-\fire{}, 2-\fire{} and 3-\fire{} score isolines.}\label{fig:experiments}
 \end{figure*}
 
-\begin{table}[t]\centering
-	\begin{tabular}{|c|c|c|c|c|c|}
+\begin{table*}[t]\centering
+	\begin{tabular}{|c||c|c|c|c|c||c|c|c|c|}
 		\toprule
-		Algorithm & Accuracy, $p$ & $r$ & \multicolumn{3}{c|}{\psifire{}} \\
-		& & & $\psi=1$ & $\psi=2$ & $\psi=3$ \\
+		Algorithm & Accuracy & Coverage & Extracted & Predictive & Coverage & $Q_s$ & \multicolumn{3}{c|}{\psifire{}} \\
+		& & & rules ($r$) & loss ($p$) & loss ($c$) & & $\psi=1$ & $\psi=2$ & $\psi=3$ \\
 		\midrule\midrule
-		9-NN & 0.97,~~~~-~~~ & - & - & - & - \\
-		\cart{} & 0.95, 0.05 & 3 & 0.16 & 0.11 & 0.05 \\
-		\iter{} & 0.89, 0.11 & 3 & 0.35 & 0.23 & 0.12 \\
-		\creepy{} & 0.93, 0.07 & 3 & 0.22 & 0.15 & 0.07 \\
-		(4 feat.) & & & & & \\
-		\creepy{} & 0.91, 0.09 & 3 & 0.29 & 0.19 & 0.09 \\
-		(2 feat.) & & & & & \\
-		\gridex{} & 0.94, 0.06 & 3 & 0.19 & 0.13 & 0.06 \\
-		\gridex{} & 0.81, 0.19 & 4 & 0.81 & 0.41 & 0.41 \\
-		\gridex{} & 0.97, 0.03 & 8 & 0.27 & 0.13 & 0.10 \\
+		9-NN & 0.97 & - & - & - & - & - & - & - & - \\
+		\midrule
+		\cart{} & 0.95 & 1.00 & 3 & 0.05 & 1.00 & 0.15 & 0.16 & 0.11 & 0.05 \\
+		\iter{} & 0.94 & 1.00 & 3 & 0.06 & 1.00 & 0.18 & 0.19 & 0.13 & 0.06 \\
+		\creepy{} (2 features) & 0.97 & 1.00 & 3 & 0.03 & 1.00 & \textbf{0.09} & \textbf{0.10} & \textbf{0.06} & \textbf{0.03} \\
+		\creepy{} (1 feature) & 0.93 & 1.00 & 3 & 0.07 & 1.00 & 0.21 & 0.22 & 0.15 & 0.07 \\
+		\gridex{} (3 rules) & 0.96 & 0.95 & 3 & 0.04 & 1.05 & 0.13 & 0.13 & 0.08 & 0.04 \\
+		\gridex{} (4 rules) & 0.87 & 1.00 & 4 & 0.13 & 1.00 & 0.52 & 0.56 & 0.28 & 0.28 \\
+		\gridex{} (6 rules) & 0.98 & 0.43 & 6 & 0.02 & 1.57 & 0.19 & 0.13 & 0.07 & 0.04 \\
 		\bottomrule
 	\end{tabular}
 	\caption{Quality assessments for the knowledge extracted by different SKE algorithms from a 9-NN for the Iris data set.}
 	\label{tab:experiments}
-\end{table}
+\end{table*}
 
-The effectiveness of the \fire{} score to evaluate and compare the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.\footnote{Code available at \url{https://github.com/psykei/psyke-python/blob/demo/AAAI23/FiRe/demo/DemoFire.ipynb}}
+The effectiveness of the \fire{} score in evaluating and comparing the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.%\footnote{Code available at \url{https://github.com/psykei/psyke-python/blob/demo/AAAI23/FiRe/demo/DemoFire.ipynb}}
 %
-In particular, the \psyke{} framework~\cite{psyke-woa2021} has been used to train a BB predictor and a set of extractors on the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.%\cite{psyke-woa2021,psyke-ia2022}
+In particular, the \psyke{} framework\footnote{Experiments can be reproduced by installing the package from \url{https://github.com/psykei/psyke-python}}~\cite{psyke-woa2021,psyke-extraamas2022,psyke-ia2022} has been used to train a BB predictor and a set of extractors on the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.
 %
 The adopted extractors are the following: \cart{}~\cite{breiman1984classification}, \iter{}~\cite{huysmans2006iter}, \creepy{}~\cite{psyke-woa2021} and \gridex{}~\cite{gridex-extraamas2021}.
 %
 All these techniques have been applied to a $k$-nearest neighbour ($k$-NN) classifier, having $k=9$.
 %
-Since they all are pedagogical algorithms, the provided output knowledge has been extracted only by observing the input/output response of the 9-NN.
+Since all the extractors are pedagogical algorithms, the provided output knowledge has been extracted only by observing the input/output response of the 9-NN.
 %
-We highlight that the choice of a simple data set is only bound to the possibility of easily depicting the decision boundaries given by the models.
+We highlight that the choice of a simple data set is only bound to the possibility of easily depicting the decision boundaries given by the models, enabling also a visual comparison of the resulting knowledge.
 %
 Since the \fire{} score is based on the predictive and readability loss notions, it can be applied to any model for which it is possible to express a predictive loss and a readability loss, regardless of the underlying model and data set complexity and peculiarities, and without any loss of generalisation.
 
@@ -852,7 +856,7 @@ As for the maximum depth, the first instance has a value equal to 1, and the oth
 %
 We set equal to 2 the maximum depth parameter and equal to 0.1 the error threshold, which has the same semantics as that of \gridex{}.
 %
-For our experiments we trained 2 \creepy{} instances, one considering all the 4 input features and the other only the 2 most relevant.
+For our experiments we trained 2 \creepy{} instances, one considering the most relevant input feature and the other considering also the second one.
 
 The classification accuracy of each extractor, as well as that of the 9-NN, has been reported in \Cref{tab:experiments}.
 %
@@ -860,25 +864,51 @@ The table also shows the number of extracted rules, representing the readability
 %
 Analogously, the predictive loss $p$ is reported as $1-accuracy$.
 %
-Finally, the last three columns report the \psifire{} scores associated with each extractor for different values of $\psi$.
+The coverage achieved by the extraction techniques is reported as the portion of input space covered by the corresponding knowledge, in percentage.
 %
-Data has been gathered on single executions since the goal of this section is to highlight how to exploit the \fire{} score to carry out comparisons, and not to assess the robustness of the upstream extraction procedures.
+The coverage loss has been calculated as $2-coverage$, according to the definition by~\citet{skemetrics-aaai2023}.
+%
+Finally, the last four columns report the quality scores associated with each extractor.
+%
+We compared the \psifire{} scores calculated for different values of $\psi$ with the quality score ($Q_s$) described by~\citet{skemetrics-aaai2023}.
+%
+Data has been averaged upon 5 executions for each extractor.
+%
+The results' standard deviation has been omitted, since each algorithm provided very similar outputs at every execution.
 
-A graphical representation of the decision boundaries given by the 9-NN and the extractors are reported in \Cref{fig:experiments}.
+Graphical representations of the decision boundaries given by the 9-NN and the extractors are reported in \Cref{fig:experiments}.
 %
-The bottom row of the figure reports the isolines for the \psifire{} scores adopted in the experiments.
+The bottom row of the figure reports the quality assessments.
+%
+In particular, the $Q_s$ score is reported in \Cref{fig:qs}, whereas \Cref{fig:phi1,fig:phi2,fig:phi3} show the isolines for the \psifire{} scores adopted in the experiments.
 %
 It is important to focus on the fact that it is not possible to obtain less than 3 rules, since the Iris data set describes 3 output classes and in the best case extracted knowledge contains a rule per distinct class.
 
-From \Cref{tab:experiments} and \Cref{fig:experiments} it is evident that \cart{} is the SKE algorithm providing the best output knowledge in terms of both readability and predictive performance.
+From \Cref{tab:experiments} and \Cref{fig:experiments} it is evident that \creepy{} considering 2 input features is the SKE algorithm providing the best output knowledge in terms of coverage, readability and predictive performance.
 %
-Indeed, it has the lowest \psifire{} score regardless of the adopted $\psi$.
+Indeed, it has the lowest $Q_s$ and \psifire{} scores regardless of the adopted $\psi$.
 %
-This result is true and acceptable since \cart{} is the algorithm providing the smallest amount of rules with the smallest predictive error.
+This result is true and acceptable since \creepy{} is the algorithm providing the smallest amount of rules with the smallest predictive error.
 
-Different conclusions may be drawn by comparing the \gridex{} instance providing 8 output rules and the 2 \creepy{} instances.
+Different conclusions may be drawn by comparing \cart{}, the \gridex{} instance providing a knowledge with 3 rules and the one providing 6 rules according to different quality scores.
 %
-Indeed, by observing the corresponding \psifire{} scores and the equivalent isolines in the figure, \gridex{} may be considered better than one, both or none of the \creepy{} instances when adopting $\psi=1$, 2 or 3, respectively.
+Indeed, according to the $Q_s$ score, the best knowledge amongst these is the one having 3 rules and obtained via \gridex{} ($Q_s=0.13$), whereas the \gridex{} instance providing 6 rules is the worst choice ($Q_s=0.19$).
+%
+\cart{}'s quality is assessed with $Q_s=0.15$, representing a middle evaluation between the two \gridex{} instances.
+%
+\gridex{} providing 6 rules is considered as the worst algorithm despite its minimum predictive loss since it has very high readability and coverage losses w.r.t.\ \cart{} and the other \gridex{} instance.
+%
+\cart{} is considered slightly worse than \gridex{} providing 3 rules despite having the same readability loss because \gridex{} has a higher coverage loss that is more than compensated by a better predictive loss.
+
+The comparison amongst the same three algorithms performed via the \fire{} scores leads to different conclusions.
+%
+In particular, the \fire{} score neglects the coverage loss and the quality is assessed only based on the predictive and readability losses.
+%
+For this reason the two \gridex{} instances are considered always better than \cart{}, regardless of the chosen $\psi$ value, since \cart{} has a higher predictive loss that is not compensated by its small readability loss.
+%
+The $\psi$ parameter, however, affects the comparison between the two \gridex{} instances, that are evaluated with the same quality score with $\psi=1$ and $\psi=3$.
+%
+Only in these cases the fluctuations in the predictive and readability losses are compensated by the user-defined fidelity/readability trade-off value.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}\label{sec:conclusions}
