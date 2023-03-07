@@ -220,15 +220,15 @@ SKE techniques have been applied in a wide variety of areas~\cite[to cite some e
 %
 Comparisons between different instances of the same extractor, or different extractors, in order to select the ``best extracted knowledge'' are usually carried out by observing the extractor's predictive performance, its completeness and the corresponding readability in terms of number of rules, by considering high values of these indices as more desirable.
 %
-Such a comparison in the literature is always done manually and just looking at the three indices separately.
+Such a comparison in the literature is always done manually and just by looking at the three indices separately.
 %
-The comparison is therefore subjective: if knowledge $K_a$ is compared with another knowledge $K_b$ having same readability and completeness but a smaller degree of predictive accuracy, then it is trivial to consider $K_a$ as the best one.
+The comparison is therefore subjective: if knowledge $K_a$ is compared with another knowledge $K_b$ having the same readability and completeness but a smaller degree of predictive accuracy, then it is trivial to consider $K_a$ as the best one.
 %
-Conversely, if $K_a$ has same completeness and predictive accuracy than $K_b$, but with a smaller readability extent, then the best knowledge is $K_b$.
+Conversely, if $K_a$ has the same completeness and predictive accuracy as $K_b$, but with a smaller readability extent, then the best knowledge is $K_b$.
 %
-It is also trivial to select the best knowledge if $K_a$ has at the same time all the three indices with smaller values than knowledge $K_b$, that in this case would result as the best.
+It is also trivial to select the best knowledge if $K_a$ has at the same time all three indices with smaller values than knowledge $K_b$, which in this case would result as the best.
 %
-The main challenge is to decide which is the best output amongst all those provided by SKE techniques when there is not a knowledge minimising the three indices contemporaneously.
+The main challenge is to decide which is the best output amongst all those provided by SKE techniques when there is no knowledge minimising the three indices contemporaneously.
 %
 It is always possible to highlight more than one optimum output, i.e., one for each evaluating criterion, but comparisons between small predictive performance increases versus small human-readability losses are subject to the human judgement and thus the identification of a single, optimum knowledge may depend on a subjective, biased selection.
 
@@ -242,9 +242,9 @@ To the best of our knowledge, not only an automatic way of evaluation is missing
 %
 The authors propose a multiplicative metric having three terms related to the indices.
 %
-More in detail, indices are expressed in terms of \emph{losses} (i.e., predictive loss, readability loss and coverage loss) that should be as small as possible for a good quality knowledge.
+More in detail, indices are expressed in terms of \emph{losses} (i.e., predictive loss, readability loss, and coverage loss) that should be as small as possible for good quality knowledge.
 %
-As a result, also the overall scoring function multiplying the three losses results small for a good quality knowledge and therefore it is possible to assign scores to the extractors' outputs automatically and also to compare them within algorithmic parameter tuning routines.
+As a result, also the overall scoring function multiplying the three losses results small for good quality knowledge and therefore it is possible to assign scores to the extractors' outputs automatically and also to compare them within algorithmic parameter tuning routines.
 
 The predictive performance of the extracted knowledge may be assessed w.r.t.\ two different dimensions by using the same scoring function adopted for the underlying BB.
 %
@@ -259,7 +259,7 @@ Straightforward measurements of coverage and coverage loss are the rates of prov
 %
 Alternatively, it is possible to calculate the percentage of covered and uncovered regions of the input feature space, respectively.
 %
-Coverage is trivially equal to 1.0 for exhaustive knowledge-extraction algorithms, as for instance those based on decision trees.
+Coverage is trivially equal to 1.0 for exhaustive knowledge-extraction algorithms, for instance, those based on decision trees.
 
 The readability evaluation from a human perspective is usually done by comparing the number of extracted items (i.e., an algorithm that extracts 5 rules is considered more readable than an algorithm that extracts 10 rules; or an algorithm that extracts a decision tree with depth = 5 is considered more readable than an algorithm extracting a decision tree with depth = 10)~\cite{czarnowski2016}.
 % 
@@ -274,7 +274,7 @@ In particular, a readability metric may also consider:
 %
 However, both these items require further investigations to be formalised and numerically assessed.
 
-The scoring function presented here considers only the knowledge size as readability measure, similarly to comparisons performed by humans and reported in the literature.
+The scoring function presented here considers only the knowledge size as readability measure, similar to comparisons performed by humans and reported in the literature.
 %
 The same strategy has been applied for the other metric described by~\citet{skemetrics-aaai2023}.
 
@@ -536,7 +536,7 @@ The derivative is 0 for $p=0$, indeed in this case the \psifire{} score is alway
 
 In this section considerations about the practical application of the \fire{} score are reported, in order to highlight its effectiveness but also to further explain the score meaning and the importance of the $\psi$ parameter.
 %
-Accordingly, in \Cref{ssec:comp} several theoretical examples of the \fire{} score applications are explained, together with corresponding observations, whereas in \Cref{ssec:balance} the equilibrium between the predictive and readability loss parameters is analytically studied. Finally, in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
+Accordingly, in \Cref{ssec:comp} several examples of the \fire{} score applications are explained, together with corresponding observations, whereas in \Cref{ssec:balance} the equilibrium between the predictive and readability loss parameters is analytically studied. Finally, in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
 
 \subsection{Comparing algorithms with \fire{}}\label{ssec:comp}
 
@@ -611,7 +611,7 @@ In the second case, the focus is on studying the effects of individual decreases
 %
 Thanks to this, users highlight the effect of the fidelity/readability $\psi$ trade-off and thus they may discover that it may be sufficient a small enhancement in one loss rather than big efforts on the other to achieve better knowledge quality.
 
-The relationship to be satisfied in order to find the equilibrium between predictive and readability losses may be found by multiplying the losses by two unknown constants, $\alpha$ and $\beta$:
+In order to find the equilibrium between predictive and readability losses, the relationship to be satisfied can be expressed by the following equivalence, where $\alpha$ and $\beta$ are two unknown constants:
 %
 \begin{equation}\label{eq:equi1}
 	\psi\textrm{-}\fire(p, r) = \psi\textrm{-}\fire(\alpha p, \beta r),
@@ -641,6 +641,7 @@ By resolving w.r.t.\ $\alpha$ we obtain:
 These equations demonstrate that knowledge with a predictive loss $p$ and readability loss $r$ has the same quality as another knowledge having predictive loss $\alpha p$ and readability loss $\beta r$ if and only if \Cref{eq:alpha} is satisfied.
 %
 Furthermore, \Cref{eq:alpha} highlights that the $p$ parameter is not relevant in finding a pair of compensating $\alpha$ and $\beta$ multiplicative constant for the losses involved in the \fire{} score calculation, differently to $r$ and $\psi$ that play a role in the pair determination.
+%RC COMMENT: fede, qui riesci a dare una intuizione facile facile su come mai p non conta nulla?
 
 When altering the predictive and readability losses in the \fire{} score, given the monotonicity properties of the scoring function, intuitively we may have predictive loss increases compensated by readability loss decreases or, vice versa, readability loss increases balanced by predictive loss decreases.
 %
@@ -660,7 +661,7 @@ Obviously, if $\beta = 1$ then $\alpha = 1$.
 
 All these relationships may be traced in \Cref{fig:equi}.
 %
-In the figure the relationship between the $\alpha$ and $\beta$ values are shown for different values of the threshold-parameter $\psi$ and the readability loss $r$, given that $\alpha$ depends also on them other than $\beta$.
+In the figure, the relationship between the $\alpha$ and $\beta$ values are shown for different values of the threshold-parameter $\psi$ and the readability loss $r$, given that $\alpha$ depends also on them other than $\beta$.
 %
 It is possible to notice that with a fixed $\beta$ and for growing values of $\psi$ the effects of $\beta$ are more and more neglected, whereas for growing values of $r$ they are more pronounced.
 %
@@ -810,7 +811,7 @@ On the other hand, it is worse if considering $\psi=6$.
 
 The dual situation can be encountered with knowledge having 5 rules and MAE = 0.8 (red cross).
 %
-In this case the knowledge quality is considered better when evaluated through the 6-\fire{} score and worse with the 2-\fire{} score.
+In this case, the knowledge quality is considered better when evaluated through the 6-\fire{} score and worse with the 2-\fire{} score.
 
 Given all these remarks, we suggest selecting the most adequate value of the $\psi$ parameter for the task after observing the corresponding isolines.
 
@@ -874,7 +875,7 @@ As for the maximum depth, the first instance has a value equal to 1, and the oth
 %
 We set equal to 2 the maximum depth parameter and equal to 0.1 the error threshold, which has the same semantics as that of \gridex{}.
 %
-For our experiments we trained 2 \creepy{} instances, one considering the most relevant input feature and the other considering also the second one.
+For our experiments, we trained 2 \creepy{} instances, one considering the most relevant input feature and the other considering also the second one.
 
 The classification accuracy of each extractor, as well as that of the 9-NN, has been reported in \Cref{tab:experiments}.
 %
@@ -892,7 +893,7 @@ We compared the \psifire{} scores calculated for different values of $\psi$ with
 %
 Data has been averaged upon 5 executions for each extractor.
 %
-The results' standard deviation has been omitted, since each algorithm provided very similar outputs at every execution.
+The results' standard deviation has been omitted since each algorithm provided very similar outputs at every execution.
 
 Graphical representations of the decision boundaries given by the 9-NN and the extractors are reported in \Cref{fig:experiments}.
 %
