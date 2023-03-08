@@ -602,6 +602,8 @@ Given the ability of the \fire{} score in providing the notion of \emph{knowledg
 	\item the predictive loss decrease (resp.\ increase) exactly annihilating a readability loss increase (resp.\ decrease); and
 	\item the predictive loss decrease (resp.\ increase) having the same effect as a readability loss decrease (resp.\ increase).
 \end{inlinelist}
+%
+This enables not only the knowledge evaluation and the best knowledge selection, but also a pairwise comparison based on predictive and readability loss alteration.
 
 In the first case, the goal is to find the equilibrium between predictive loss and readability loss when both these indices vary in opposite directions (one increasing, leading to a worse \fire{} score and the other decreasing, leading to a better score).
 %
@@ -629,19 +631,13 @@ By resolving w.r.t.\ $\alpha$ we obtain:
 	\alpha = \frac{\left \lceil{\frac{r}{\psi}}\right \rceil}{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}.
 \end{equation}
 
-%\begin{equation}\label{eq:equi}
-%	\begin{split}
-%		\psi\textrm{-}\fire(p, r) &= \psi\textrm{-}\fire(\alpha p, \beta r) \\
-%		p \left \lceil{\frac{r}{\psi}}\right \rceil r^{0.05} &= \alpha p \left \lceil{\frac{\beta r}{\psi}}\right \rceil (\beta r)^{0.05} \\
-%		\left \lceil{\frac{r}{\psi}}\right \rceil &= \alpha \left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05} \\
-%		\alpha &= \frac{\left \lceil{\frac{r}{\psi}}\right \rceil}{\left \lceil{\frac{\beta r}{\psi}}\right \rceil \beta^{0.05}}.
-%	\end{split}
-%\end{equation}
-
 These equations demonstrate that knowledge with a predictive loss $p$ and readability loss $r$ has the same quality as another knowledge having predictive loss $\alpha p$ and readability loss $\beta r$ if and only if \Cref{eq:alpha} is satisfied.
 %
-Furthermore, \Cref{eq:alpha} highlights that the $p$ parameter is not relevant in finding a pair of compensating $\alpha$ and $\beta$ multiplicative constant for the losses involved in the \fire{} score calculation, differently to $r$ and $\psi$ that play a role in the pair determination.
-%RC COMMENT: fede, qui riesci a dare una intuizione facile facile su come mai p non conta nulla?
+Furthermore, \Cref{eq:alpha} highlights that the $p$ parameter is not relevant in finding a pair of compensating $\alpha$ and $\beta$ multiplicative constants for the losses involved in the \fire{} score calculation, differently to $r$ and $\psi$ that play a role in the pair determination.
+%
+This is not surprising, given that the \fire{} score is directly proportional to the predictive loss and therefore the increasing score (denoting a quality worsening) due to a predictive loss increase is not dependent on the actual value of the loss before or after the increase.
+%
+Conversely, how a readability loss increase affects the \fire{} score is strictly dependent on the loss value itself and the $\psi$ parameter.
 
 When altering the predictive and readability losses in the \fire{} score, given the monotonicity properties of the scoring function, intuitively we may have predictive loss increases compensated by readability loss decreases or, vice versa, readability loss increases balanced by predictive loss decreases.
 %
@@ -727,24 +723,6 @@ The models are thus equivalent according to both of the considered scoring funct
 %
 Analogously, by assuming two extractors providing 2 and 3 output rules with predictive errors equal to 0.5 and 2.0, respectively (fuchsia and purple cross in the figure), both scores are unanimous in evaluating the former as a better extraction procedure and in considering worse the latter.
 
-Different behaviours can be observed, for instance, by selecting an extracted knowledge composed of a single rule with MAE = 1.5 (green cross).
-%
-In this case, the scores are evaluated as follows:
-%
-\begin{equation*}
-	2\textrm{-}\fire(1.5, 1)=1.5 < 2.14 = 2\textrm{-}\fire(1.0, 4),
-\end{equation*}
-%
-\begin{equation*}
-	6\textrm{-}\fire(1.5, 1)=1.5 > 1.07 = 6\textrm{-}\fire(1.0, 4),
-\end{equation*}
-%
-and their interpretation leads to opposite conclusions.
-%
-In particular, the single-ruled knowledge is considered better than the others lying on the isoline if considering $\psi=2$.
-%
-On the other hand, it is worse if considering $\psi=6$.
-
 \captionsetup[subfigure]{width=.25\linewidth}
 \begin{figure*}[tb]\centering
 	\subfloat[9-NN.]{
@@ -808,6 +786,24 @@ On the other hand, it is worse if considering $\psi=6$.
 	\caption{Quality assessments for the knowledge extracted by different SKE algorithms from a 9-NN for the Iris data set.}
 	\label{tab:experiments}
 \end{table*}
+
+Different behaviours can be observed, for instance, by selecting an extracted knowledge composed of a single rule with MAE = 1.5 (green cross).
+%
+In this case, the scores are evaluated as follows:
+%
+\begin{equation*}
+	2\textrm{-}\fire(1.5, 1)=1.5 < 2.14 = 2\textrm{-}\fire(1.0, 4),
+\end{equation*}
+%
+\begin{equation*}
+	6\textrm{-}\fire(1.5, 1)=1.5 > 1.07 = 6\textrm{-}\fire(1.0, 4),
+\end{equation*}
+%
+and their interpretation leads to opposite conclusions.
+%
+In particular, the single-ruled knowledge is considered better than the others lying on the isoline if considering $\psi=2$.
+%
+On the other hand, it is worse if considering $\psi=6$.
 
 The dual situation can be encountered with knowledge having 5 rules and MAE = 0.8 (red cross).
 %
@@ -888,6 +884,8 @@ The coverage achieved by the extraction techniques is reported as the portion of
 The coverage loss has been calculated as $2-coverage$, according to the definition by~\citet{skemetrics-aaai2023}.
 %
 Finally, the last four columns report the quality scores associated with each extractor.
+%
+Best scores are highlighted with bold font.
 %
 We compared the \psifire{} scores calculated for different values of $\psi$ with the quality score ($Q_s$) described by~\citet{skemetrics-aaai2023}.
 %
