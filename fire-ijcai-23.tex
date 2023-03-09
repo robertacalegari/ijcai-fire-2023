@@ -168,7 +168,7 @@ When this option is not feasible or does not provide satisfying results, a diffe
 %
 This second strategy is the rationale behind symbolic knowledge-extraction (SKE) procedures.
 
-In the years, a plethora of SKE techniques has been proposed in the literature~\cite[for instance]{breiman1984classification,craven1994using,Thrun94,Andrews95rulex,craven1996extracting,BenitezCR97,SetionoL97,schmitz1999ann,SetionoL00,CastilloGP01,saito2002extracting,setiono2002extraction,Markowska-KaczmarT03,SetionoT04,barakat2005eclectic,huysmans2006iter,grex-icdm2008,NunezAC08,gridex-extraamas2021,gridrex-kr2022}.% and applied to several learning tasks \cite[to cite some examples]{bologna1997three,hayashi2000comparison,baesens2003using,hofmann2003rule,steiner2006using,franco2007early,sabbatini22LPFSKE}.
+In the years, a plethora of SKE techniques have been proposed in the literature~\cite[for instance]{breiman1984classification,craven1994using,Thrun94,Andrews95rulex,craven1996extracting,BenitezCR97,SetionoL97,schmitz1999ann,SetionoL00,CastilloGP01,saito2002extracting,setiono2002extraction,Markowska-KaczmarT03,SetionoT04,huysmans2006iter,barakat2005eclectic,grex-icdm2008,NunezAC08,gridex-extraamas2021,gridrex-kr2022}.% and applied to several learning tasks \cite[to cite some examples]{bologna1997three,hayashi2000comparison,baesens2003using,hofmann2003rule,steiner2006using,franco2007early,sabbatini22LPFSKE}.
 %
 Given the amount of available analogous algorithms applicable to the same tasks, it may be complex to find the most suitable.
 %
@@ -177,7 +177,7 @@ Furthermore, some procedures need the fine tuning of a set of hyper-parameters, 
 Comparisons between different instances of the same extractor, or different extractors, are usually carried out by observing
 %
 \begin{inlinelist}
-	\item the predictive performance of the extractor, w.r.t.\ the underlying BB predictions and/or the actual data set output variables;
+	\item the predictive performance of the extractor, w.r.t.\ the underlying BB predictions and/or the actual data set output variables (i.e., the ground truth);
 	\item the readability of the output human-intelligible knowledge; and
 	\item the completeness of the knowledge in providing predictions~\cite{garcez2001symbolic,tran2013knowledge,skemetrics-aaai2023}.
 \end{inlinelist}
@@ -186,18 +186,18 @@ The former can be easily assessed via the same metrics adopted to measure the pr
 %
 Readability may be measured through different indicators, however, to the best of our knowledge, a widely-acknowledged, well-founded, and sound definition has not been yet formulated.
 %
-Finally, knowledge completeness may be calculated as the percentage of queries that the knowledge is able to predict.
+Finally, knowledge completeness may be calculated as the fraction of queries that the knowledge is able to predict or the percentage of covered input feature space.
 
 Comparisons performed by users and automated algorithmic comparisons can surely benefit from a unified scoring function encompassing the concepts of predictive performance, readability and completeness associated with the knowledge provided by SKE techniques.
 %
-The definition of this kind of scoring is the fundamental brick for moving toward automated machine learning (AutoML) \cite{karmaker2021automl}.
+The definition of this kind of scoring function is the fundamental brick for moving toward automated machine learning (AutoML) \cite{karmaker2021automl}.
 %
 Accordingly, in this paper we propose the \fire{} score as a compact and expressive metric to evaluate and compare different knowledge extractors, also in association with automated parameter tuning procedures.
 
 The paper is organized as follows.
 Section \ref{sec:motivation} discusses the motivations of the work as well as some considerations around the topic.
 %
-\Cref{sec:fire} contains the main contribution of this work and defines the \emph{\fire{} score} for the evaluation of symbolic knowledge.
+\Cref{sec:fire} contains the main contribution of this work and defines the \fire{} score for the evaluation of symbolic knowledge.
 \Cref{sec:use,sec:experiments} discuss the use of the metric as well as some explanatory experiments, respectively.
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -228,7 +228,7 @@ Conversely, if $K_a$ has the same completeness and predictive accuracy as $K_b$,
 %
 It is also trivial to select the best knowledge if $K_a$ has at the same time all three indices with smaller values than knowledge $K_b$, which in this case would result as the best.
 %
-The main challenge is to decide which is the best output amongst all those provided by SKE techniques when there is no knowledge minimising the three indices contemporaneously.
+The main challenge is to decide which is the best output amongst all those provided by SKE techniques when there is no knowledge maximising the three indices contemporaneously.
 %
 It is always possible to highlight more than one optimum output, i.e., one for each evaluating criterion, but comparisons between small predictive performance increases versus small human-readability losses are subject to the human judgement and thus the identification of a single, optimum knowledge may depend on a subjective, biased selection.
 
@@ -246,7 +246,7 @@ More in detail, indices are expressed in terms of \emph{losses} (i.e., predictiv
 %
 As a result, also the overall scoring function multiplying the three losses results small for good quality knowledge and therefore it is possible to assign scores to the extractors' outputs automatically and also to compare them within algorithmic parameter tuning routines.
 
-The predictive performance of the extracted knowledge may be assessed w.r.t.\ two different dimensions by using the same scoring function adopted for the underlying BB.
+In general, the predictive performance of the extracted knowledge may be assessed w.r.t.\ two different dimensions by using the same scoring function adopted for the underlying BB.
 %
 These dimensions are:
 %
@@ -284,7 +284,7 @@ First, \fire{} neglects the contribution of the coverage index in calculating th
 %
 Thus, it is based only on the notions of predictive and readability losses.
 %
-Second, \fire{} allows users to provide an input parameter used to weight the contribution of the predictive loss w.r.t.\ the readability loss.
+Second, \fire{} allows users to provide an input parameter to weight the contribution of the predictive loss w.r.t.\ the readability loss.
 %
 This is important, since it enhances the flexibility of the scoring function in capturing the needs of users, for instance preferring output knowledge with the smallest predictive error rather than the most readable knowledge having larger errors.
 
@@ -414,18 +414,12 @@ In other words, given the aforementioned \fire{} score formulation and by assumi
 %-----------------------------------------------------%
 The domain of the function is explained by the following observations.
 %
-The $\psi$ parameter is a positive real value for design.
+\begin{itemize}
+	\item The $\psi$ parameter is a positive real value for design. Limiting the admissible $\psi$ values to $\mathbb{N}_1$ may be also reasonable, but an extension to $\mathbb{R}_{>0}$ makes the \fire{} score more flexible.
+	\item On the other hand, the $p$ parameter is a measurement of a predictive error, so it may be equal to 0 in the best case, or arbitrarily larger otherwise since there is no upper bound to the predictive error of a model.
+	\item Finally, $r$ is an integer number greater or equal to 1, since it represents the number of extracted rules, that is a discrete quantity equal to 1 (in the best case) or larger (otherwise). However, the admissible values for this parameter have been extended from $\mathbb{N}_1$ to $\mathbb{R}_{\geq 1}$ for the sake of flexibility, analogously to the range for $\psi$. This choice enables, for instance, the \fire{} score calculation for averaged sets of extractors trained with the same hyper-parameters, resulting in a more robust score.
+\end{itemize}
 %
-Limiting the admissible $\psi$ values to $\mathbb{N}_1$ may be also reasonable, but an extension to $\mathbb{R}_{>0}$ makes the \fire{} score more flexible.
-%
-On the other hand, the $p$ parameter is a measurement of a predictive error, so it may be equal to 0 in the best case, or arbitrarily larger otherwise since there is no upper bound to the predictive error of a model.
-%
-Finally, $r$ is an integer number greater or equal to 1, since it represents the number of extracted rules, that is a discrete quantity equal to 1 (in the best case) or larger (otherwise).
-%
-However, the admissible values for this parameter have been extended from $\mathbb{N}_1$ to $\mathbb{R}_{\geq 1}$ for the sake of flexibility, analogously to the range for $\psi$.
-%
-This choice enables, for instance, the \fire{} score calculation for averaged sets of extractors trained with the same hyper-parameters, resulting in a more robust score.
-
 As a result of the observations above, the \fire{} score is defined as a continuous (yet non-differentiable) function in the aforementioned domain and it may assume any non-negative value.
 %
 Therefore, the score is a function bounded from below by 0.
@@ -536,7 +530,7 @@ The derivative is 0 for $p=0$, indeed in this case the \psifire{} score is alway
 
 In this section considerations about the practical application of the \fire{} score are reported, in order to highlight its effectiveness but also to further explain the score meaning and the importance of the $\psi$ parameter.
 %
-Accordingly, in \Cref{ssec:comp} several examples of the \fire{} score applications are explained, together with corresponding observations, whereas in \Cref{ssec:balance} the equilibrium between the predictive and readability loss parameters is analytically studied. Finally, in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
+Accordingly, in \Cref{ssec:comp} several examples of the \fire{} score application are explained, together with corresponding observations, whereas in \Cref{ssec:balance} the equilibrium between the predictive and readability loss parameters is analytically studied. Finally, in \Cref{ssec:psi} more details about the $\psi$ parameter tuning are provided from a practical application standpoint.
 
 \subsection{Comparing algorithms with \fire{}}\label{ssec:comp}
 
@@ -565,7 +559,7 @@ The same condition holds for all extractors having the same 1-\fire{} score valu
 This is the case, for example, of extractors providing 2, 4, 6 and 8 rules associated with MAE of 19.3, 9.3, 6.1 and 4.5, respectively.
 %
 All these models are considered \emph{equivalent} on the basis of the 1-\fire{} score.
-%
+
 Conversely, a model able to extract 4 rules with a predictive error of 5.0 is considered \emph{better}, since it has a smaller 1-\fire{} score and thus it lies in the graph under the red isoline.
 %
 More precisely, $1\textrm{-}\fire(5.0, 4)=21.4$.
@@ -632,12 +626,12 @@ By resolving w.r.t.\ $\alpha$ we obtain:
 \end{equation}
 
 These equations demonstrate that knowledge with a predictive loss $p$ and readability loss $r$ has the same quality as another knowledge having predictive loss $\alpha p$ and readability loss $\beta r$ if and only if \Cref{eq:alpha} is satisfied.
-%
+
 Furthermore, \Cref{eq:alpha} highlights that the $p$ parameter is not relevant in finding a pair of compensating $\alpha$ and $\beta$ multiplicative constants for the losses involved in the \fire{} score calculation, differently to $r$ and $\psi$ that play a role in the pair determination.
 %
 This is not surprising, given that the \fire{} score is directly proportional to the predictive loss and therefore the increasing score (denoting a quality worsening) due to a predictive loss increase is not dependent on the actual value of the loss before or after the increase.
 %
-Conversely, how a readability loss increase affects the \fire{} score is strictly dependent on the loss value itself and the $\psi$ parameter.
+Conversely, how a readability loss increase affects the \fire{} score is strictly dependent on the $\psi$ parameter and the loss value itself.
 
 When altering the predictive and readability losses in the \fire{} score, given the monotonicity properties of the scoring function, intuitively we may have predictive loss increases compensated by readability loss decreases or, vice versa, readability loss increases balanced by predictive loss decreases.
 %
@@ -693,40 +687,10 @@ By applying the same considerations as before, we find that in this case $\alpha
 	\caption{Different boundaries associated to the 2-\fire{} and 6-\fire{} scores.}\label{fig:areas}
 \end{figure}
 
-It is of fundamental importance to carefully choose the $\psi$ parameter of \fire{}.
-%
-\Cref{fig:readVSfirePSI} already showed that larger values of $\psi$ reduce the impact of the readability loss.
-%
-However, it is important to know that different $\psi$ values may lead to \emph{opposite} results when applied to compare the same extractors.
-%
-This peculiarity is depicted in \Cref{fig:areas}, representing the separating boundaries identified by the isolines obtained via the 2-\fire{} and 6-\fire{} scores w.r.t.\ a given extractor described in the following.
-%
-The boundaries associated with the two scoring functions are represented as green and red isolines, respectively.
-%
-The hatched area below each isoline highlights the parameter space region denoting ``more desirable'' extractors, providing knowledge with better quality w.r.t.\ extractors lying on the isoline.
-
-Let us assume to have an extractor able to obtain 4 rules from a BB model with a mean absolute error equal to 1.0 (blue cross in \Cref{fig:areas}).
-%
-The \psifire{} scores associated with this model are:
-%
-\begin{equation*}
-	2\textrm{-}\fire(1.0, 4)=2.14,
-\end{equation*}
-%
-\begin{equation*}
-	6\textrm{-}\fire(1.0, 4)=1.07.
-\end{equation*}
-%
-An SKE algorithm extracting 8 rules with MAE = 0.5 (orange cross) has the same \fire{} scores for both values of $\psi$.
-%
-The models are thus equivalent according to both of the considered scoring functions.
-%
-Analogously, by assuming two extractors providing 2 and 3 output rules with predictive errors equal to 0.5 and 2.0, respectively (fuchsia and purple cross in the figure), both scores are unanimous in evaluating the former as a better extraction procedure and in considering worse the latter.
-
 \captionsetup[subfigure]{width=.25\linewidth}
 \begin{figure*}[tb]\centering
 	\subfloat[9-NN.]{
-	\includegraphics[width=\fourinarow]{figures/classif/knn.pdf}\label{fig:knn}
+		\includegraphics[width=\fourinarow]{figures/classif/knn.pdf}\label{fig:knn}
 	}
 	\subfloat[\cart{}.]{
 		\includegraphics[width=\fourinarow]{figures/classif/cart.pdf}\label{fig:cart}
@@ -787,6 +751,36 @@ Analogously, by assuming two extractors providing 2 and 3 output rules with pred
 	\label{tab:experiments}
 \end{table*}
 
+It is of fundamental importance to carefully choose the $\psi$ parameter of \fire{}.
+%
+\Cref{fig:readVSfirePSI} already showed that larger values of $\psi$ reduce the impact of the readability loss.
+%
+However, it is important to know that different $\psi$ values may lead to \emph{opposite} results when applied to compare the same extractors.
+%
+This peculiarity is depicted in \Cref{fig:areas}, representing the separating boundaries identified by the isolines obtained via the 2-\fire{} and 6-\fire{} scores w.r.t.\ a given extractor described in the following.
+%
+The boundaries associated with the two scoring functions are represented as green and red isolines, respectively.
+%
+The hatched area below each isoline highlights the parameter space region denoting ``more desirable'' extractors, providing knowledge with better quality w.r.t.\ extractors lying on the isoline.
+
+Let us assume to have an extractor able to obtain 4 rules from a BB model with a mean absolute error equal to 1.0 (blue cross in \Cref{fig:areas}).
+%
+The \psifire{} scores associated with this model are:
+%
+\begin{equation*}
+	2\textrm{-}\fire(1.0, 4)=2.14,
+\end{equation*}
+%
+\begin{equation*}
+	6\textrm{-}\fire(1.0, 4)=1.07.
+\end{equation*}
+%
+An SKE algorithm extracting 8 rules with MAE = 0.5 (orange cross) has the same \fire{} scores for both values of $\psi$.
+%
+The models are thus equivalent according to both of the considered scoring functions.
+%
+Analogously, by assuming two extractors providing 2 and 3 output rules with predictive errors equal to 0.5 and 2.0, respectively (fuchsia and purple cross in the figure), both scores are unanimous in evaluating the former as a better extraction procedure and in considering worse the latter.
+
 Different behaviours can be observed, for instance, by selecting an extracted knowledge composed of a single rule with MAE = 1.5 (green cross).
 %
 In this case, the scores are evaluated as follows:
@@ -815,16 +809,17 @@ Given all these remarks, we suggest selecting the most adequate value of the $\p
 \section{Experiments and discussion}\label{sec:experiments}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-The effectiveness of the \fire{} score in evaluating and comparing the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.%\footnote{Code available at \url{https://github.com/psykei/psyke-python/blob/demo/AAAI23/FiRe/demo/DemoFire.ipynb}}
+The effectiveness of the \fire{} score in evaluating and comparing the quality of SKE techniques' extracted knowledge has been assessed by running several experiments.
+%\footnote{Code available at \url{https://github.com/psykei/psyke-python/blob/demo/AAAI23/FiRe/demo/DemoFire.ipynb}}
 %
-In particular, the \psyke{} framework\footnote{Experiments can be reproduced by installing the package from \url{https://github.com/psykei/psyke-python}}~\cite{psyke-woa2021,psyke-extraamas2022,psyke-ia2022} has been used to train a BB predictor and a set of extractors on the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.
+In particular, the \psyke{} framework\footnote{Experiments can be reproduced by installing the package from \url{https://github.com/psykei/psyke-python}}~\cite{psyke-woa2021,psyke-extraamas2022,psyke-ia2022} has been used to train a BB predictor and a set of extractors on the well-known Iris data set\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}}~\cite{iris}.
 %
-The adopted extractors are the following: \cart{}~\cite{breiman1984classification}, \iter{}~\cite{huysmans2006iter}, \creepy{}~\cite{psyke-woa2021} and \gridex{}~\cite{gridex-extraamas2021}.
+The adopted extractors are the following: \cart{}~\cite{breiman1984classification}, \iter{}~\cite{huysmans2006iter}, \creepy{}~\cite{exact2023} and \gridex{}~\cite{gridex-extraamas2021}.
 %
 All these techniques have been applied to a $k$-nearest neighbour ($k$-NN) classifier, having $k=9$.
 %
 Since all the extractors are pedagogical algorithms, the provided output knowledge has been extracted only by observing the input/output response of the 9-NN.
-%
+
 We highlight that the choice of a simple data set is only bound to the possibility of easily depicting the decision boundaries given by the models, enabling also a visual comparison of the resulting knowledge.
 %
 Since the \fire{} score is based on the predictive and readability loss notions, it can be applied to any model for which it is possible to express a predictive loss and a readability loss, regardless of the underlying model and data set complexity and peculiarities, and without any loss of generalisation.
@@ -885,7 +880,7 @@ The coverage loss has been calculated as $2-coverage$, according to the definiti
 %
 Finally, the last four columns report the quality scores associated with each extractor.
 %
-Best scores are highlighted with bold font.
+Best scores are highlighted in bold font.
 %
 We compared the \psifire{} scores calculated for different values of $\psi$ with the quality score ($Q_s$) described by~\citet{skemetrics-aaai2023}.
 %
